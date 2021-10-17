@@ -12,6 +12,8 @@ By default, any window that has been automatically minimized will be automatical
 
 ![screenshot](screenshot.gif)
 
+[view in KDE Store](https://www.pling.com/p/1619690/)
+
 © 2021 Natalie Clarius \<natalie_clarius@yahoo.de\>
 
 ## Installation

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>KWin::FloatingTilesConfigForm</class>
+ <widget class="QWidget" name="KWin::FloatingTilesConfigForm">
+  <property name="windowTitle">
+   <string>Floating Tiles</string>
+  </property>
+
+        <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="kcfg_autoRestore">
+        <property name="text">
+         <string>Automatically restore minimized windows once enough space is available again</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="kcfg_ignoreSpecial">
+        <property name="text">
+         <string>Don't hide windows when covered by special windows such as panel popouts or KRunner</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+  </layout>
+
+ </widget>
+ <resources/>
+</ui>

@@ -18,9 +18,9 @@ By default, any window that has been automatically minimized will be automatical
 
 ## Installation
 
-#### Method 1: via GUI
+#### Method 1: via graphical interface
 
-1. Install the script via *Settings* > *Window Management* > *KWin Scripts* > *Get New Scripts …* > search for *Floating Tiles* > *Install*.
+1. Install the script via *System Settings* > *Window Management* > *KWin Scripts* > *Get New Scripts …* > search for *Floating Tiles* > *Install*.
 2. Activate the script by selecting the checkbox in the *Floating Tiles* entry.
 
 #### Method 2: via command line
@@ -42,7 +42,7 @@ If the configuration button is missing, try the following:
 
 ````bash
 mkdir -p ~/.local/share/kservices5
-ln -s ~/.local/share/kwin/scripts/floatingtiles/metadata.desktop ~/.local/share/kservices5/floatingtiles.desktop
+ln -sf ~/.local/share/kwin/scripts/floatingtiles/metadata.desktop ~/.local/share/kservices5/floatingtiles.desktop
 ````
 
 If that still doesn’t work, you can make the changes in the source code:

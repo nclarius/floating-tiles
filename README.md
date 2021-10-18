@@ -14,8 +14,6 @@ By default, any window that has been automatically minimized will be automatical
 
 [view in KDE Store](https://www.pling.com/p/1619690/)
 
-© 2021 Natalie Clarius \<natalie_clarius@yahoo.de\>
-
 ## Installation
 
 #### Method 1: via graphical interface
@@ -62,3 +60,9 @@ If that still doesn’t work, you can make the changes in the source code:
    ````bash
    kwin_x11 --replace &
    ````
+
+## Contact
+
+© 2021 Natalie Clarius \<natalie_clarius@yahoo.de\>
+
+If you would like to thank me, you can [buy me a coffee](https://www.buymeacoffee.com/nclarius).

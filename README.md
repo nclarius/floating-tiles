@@ -38,7 +38,7 @@ qdbus org.kde.KWin /KWin reconfigure
 
 *System Settings* > *Window Management* > *KWin Scripts* > configuration button in the *Floating Tiles* entry.
 
-You may have to disable and reenable to script in order for the changes to take effect.
+You may have to disable and reenable the script in order for the changes to take effect.
 
 If the configuration button is missing, try the following:
 
@@ -51,7 +51,7 @@ If that still doesn’t work, you can make the changes in the source code:
 
 1. Download and the code via GitHub (top right green button *Code* > *Download ZIP*) or KDE store (top right purple button *Download*) and unpack.
 2. In ` contents/code/main.js`, change the `true`/`false` values at the beginning of the file to your preferences.
-3. Recompile the script by starting a terminal window in the `floating-tiles` folder and running the command
+3. Reinstall the script by starting a terminal window in the `floating-tiles` folder and running the command
 
     ```bash
     plasmapkg2 --type kwinscript -u .

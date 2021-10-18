@@ -16,12 +16,12 @@ By default, any window that has been automatically minimized will be automatical
 
 ## Installation
 
-#### Method 1: via graphical interface
+### Method 1: via graphical interface
 
 1. Install the script via *System Settings* > *Window Management* > *KWin Scripts* > *Get New Scripts …* > search for *Floating Tiles* > *Install*.
 2. Activate the script by selecting the checkbox in the *Floating Tiles* entry.
 
-#### Method 2: via command line
+### Method 2: via command line
 
 ```bash
 git clone https://github.com/nclarius/floating-tiles.git

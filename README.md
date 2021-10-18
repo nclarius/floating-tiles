@@ -36,9 +36,9 @@ qdbus org.kde.KWin /KWin reconfigure
 
 ## Configuration
 
-*Settings* > *Window Management* > *KWin Scripts* > configuration button in the *Floating Tiles* entry.
+*System Settings* > *Window Management* > *KWin Scripts* > configuration button in the *Floating Tiles* entry.
 
-You may have to disable and re-enable to script in order for the changes to take effect.
+You may have to disable and reenable to script in order for the changes to take effect.
 
 If the configuration button is missing, try the following:
 

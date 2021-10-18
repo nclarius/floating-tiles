@@ -11,7 +11,7 @@
     </entry>
       <entry name="ignoreSpecial" type="bool">
         <label>Don't hide windows when covered by special windows such as panel popouts or KRunner</label>
-        <default>false</default>
+        <default>true</default>
       </entry>
   </group>
 </kcfg>

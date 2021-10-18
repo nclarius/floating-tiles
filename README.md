@@ -61,7 +61,7 @@ If that still doesn’t work, you can make the changes in the source code:
    kwin_x11 --replace &
    ````
 
-## Contact
+## Small print
 
 © 2021 Natalie Clarius \<natalie_clarius@yahoo.de\>
 

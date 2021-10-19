@@ -123,7 +123,7 @@ function restoreMinimized() {
     }
 
     // iterate minimized windows
-    for (var i = 0; i < clients.length; i++) {
+    for (var i = 0; i < minimized.length; i++) {
         inactive = minimized[i];
         // remove dead clients from to be restored windows
         if (inactive == undefined || inactive == null || !workspace.clientList().includes(inactive)) {

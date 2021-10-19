@@ -16,6 +16,10 @@ By default, any window that has been automatically minimized will be automatical
 
 ## Installation
 
+### Dependencies
+
+- KWin. Tested with 5.23; versions <5.20 may cause compatibility problems.
+
 ### Method 1: via graphical interface
 
 1. Install the script via *System Settings* > *Window Management* > *KWin Scripts* > *Get New Scripts …* > search for *Floating Tiles* > *Install*.

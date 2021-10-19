@@ -19,7 +19,7 @@ By default, any window that has been automatically minimized will be automatical
 
 ### Dependencies
 
-`kwin` (tested with 5.22-5.23; deprecated versions <5.20 may cause compatibility problems).
+`kwin` version ≥ 5.22.
 
 ### Method 1: via graphical interface
 

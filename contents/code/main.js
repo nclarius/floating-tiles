@@ -21,8 +21,9 @@ const config = {
 ///////////////////////
 
 // add to watchlist when client is initially present or added
-for (const client of workspace.clientList()) {
-    onAdded(client);
+const clients = workspace.clientList();
+for (var i = 0; i < clients.length; i++) {
+    onAdded(clients[i]);
 }
 workspace.clientAdded.connect(onAdded);
 function onAdded(client) {
@@ -103,8 +104,10 @@ function minimizeOverlapping() {
     }
 
     // check for overlap with other windows
-    for (const other of workspace.clientList()) {
-        if (overlap(active, other)) {
+    const clients = workspace.clientList();
+    for (var i = 0; i < clients.length; i++) {
+        other = clients[i];
+            if (overlap(active, other)) {
             // overlap: minimize other window
             other.minimized = true;
             addMinimized(other);
@@ -120,7 +123,8 @@ function restoreMinimized() {
     }
 
     // iterate minimized windows
-    for (const inactive of minimized) {
+    for (var i = 0; i < clients.length; i++) {
+        inactive = minimized[i];
         // remove dead clients from to be restored windows
         if (inactive == undefined || inactive == null || !workspace.clientList().includes(inactive)) {
             removeMinimized(inactive);
@@ -129,7 +133,9 @@ function restoreMinimized() {
 
         // check for overlap with other windows
         noOverlap = true;
-        for (const other of workspace.clientList()) {
+        const clients = workspace.clientList();
+        for (var i = 0; i < clients.length; i++) {
+            other = clients[i];
             if (overlap(inactive, other)) {
                 // overlap: don't restore current window
                 noOverlap = false;

@@ -23,18 +23,18 @@ const config = {
 // keep track of minimized windows
 var minimized = [];
 
-// remove other occurrences and add client to beginning of list of minimized
+// remove other occurrences and add client to top of stack of minimized
 function addMinimized(client) {
     removeMinimized(client);
     minimized.unshift(client);
 }
 
-// remove client from list of minimized
+// remove client from stack of minimized
 function removeMinimized(client) {
     minimized = minimized.filter(entry => entry != client);
 }
 
-// remove client from list of minimized if it was not most recently minimized automatically
+// remove client from stack of minimized if it is not the most recent entry on the minimized stack (and has therefore been manually rather than automatically been minimized)
 function resetMinimized(client) {
     if (minimized[0] != client) {
         removeMinimized(client);
@@ -118,7 +118,7 @@ function minimizeOverlapping() {
 // restore all previously minimized windows that are now no longer overlapping
 function restoreMinimized() {
     // don't restore if auto-restore is disabled
-    if (!config.autoRestore || workspace.currentDesktop != 1) {
+    if (!config.autoRestore) {
         return;
     }
 
@@ -161,7 +161,7 @@ function reactivate() {
     // check if there is no active client but unminimized ones
     if ((workspace.activeClient == null || workspace.activeClient.desktopWindow)
     && unminimized.length > 0) {
-        // activate most recent client in the list
+        // activate most recent client on the stack
         workspace.activeClient = unminimized[0];
     }
 }

@@ -134,8 +134,8 @@ function restoreMinimized() {
         // check for overlap with other windows
         noOverlap = true;
         const clients = workspace.clientList();
-        for (var i = 0; i < clients.length; i++) {
-            other = clients[i];
+        for (var j = 0; j < clients.length; j++) {
+            other = clients[j];
             if (overlap(inactive, other)) {
                 // overlap: don't restore current window
                 noOverlap = false;

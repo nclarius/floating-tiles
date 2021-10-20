@@ -17,6 +17,31 @@ const config = {
 };
 
 ///////////////////////
+// bookkeeping
+///////////////////////
+
+// keep track of minimized windows
+var minimized = [];
+
+// remove other occurrences and add client to beginning of list of minimized
+function addMinimized(client) {
+    removeMinimized(client);
+    minimized.unshift(client);
+}
+
+// remove client from list of minimized
+function removeMinimized(client) {
+    minimized = minimized.filter(entry => entry != client);
+}
+
+// remove client from list of minimized if it was not most recently minimized automatically
+function resetMinimized(client) {
+    if (minimized[0] != client) {
+        removeMinimized(client);
+    }
+}
+
+///////////////////////
 // setup
 ///////////////////////
 
@@ -66,31 +91,6 @@ function onRemoved(client) {
 }
 
 ///////////////////////
-// bookkeeping
-///////////////////////
-
-// keep track of minimized windows
-var minimized = [];
-
-// remove other occurrences and add client to beginning of list of minimized
-function addMinimized(client) {
-    removeMinimized(client);
-    minimized.unshift(client);
-}
-
-// remove client from list of minimized
-function removeMinimized(client) {
-    minimized = minimized.filter(entry => entry != client);
-}
-
-// remove client from list of minimized if it was not most recently minimized automatically
-function resetMinimized(client) {
-    if (minimized[0] != client) {
-        removeMinimized(client);
-    }
-}
-
-///////////////////////
 // minimize, restore and reactivate
 ///////////////////////
 
@@ -107,10 +107,10 @@ function minimizeOverlapping() {
     const clients = workspace.clientList();
     for (var i = 0; i < clients.length; i++) {
         other = clients[i];
-            if (overlap(active, other)) {
+        if (overlap(active, other)) {
             // overlap: minimize other window
-            other.minimized = true;
             addMinimized(other);
+            other.minimized = true;
         }
     }
 }
@@ -118,7 +118,7 @@ function minimizeOverlapping() {
 // restore all previously minimized windows that are now no longer overlapping
 function restoreMinimized() {
     // don't restore if auto-restore is disabled
-    if (!config.autoRestore) {
+    if (!config.autoRestore || workspace.currentDesktop != 1) {
         return;
     }
 
@@ -145,8 +145,8 @@ function restoreMinimized() {
 
         if (noOverlap) {
             // window no longer overlaps with any others: restore
-            inactive.minimized = false;
             removeMinimized(inactive);
+            inactive.minimized = false;
         }
     }
 }

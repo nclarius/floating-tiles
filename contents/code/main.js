@@ -5,6 +5,12 @@ GNU General Public License v3.0
 */
 
 ///////////////////////
+// debug mode
+///////////////////////
+debugMode = true;
+function debug(...args) {if (debugMode) {console.debug(...args);}}
+
+///////////////////////
 // configuration
 ///////////////////////
 
@@ -35,6 +41,7 @@ function removeMinimized(client) {
 }
 
 // remove client from stack of minimized if it is not the most recent entry on the minimized stack (and has therefore been manually rather than automatically been minimized)
+// todo doesn't work with minimize all
 function resetMinimized(client) {
     if (minimized[0] != client) {
         removeMinimized(client);
@@ -102,6 +109,7 @@ function minimizeOverlapping() {
     if (active == undefined || active == null || active.move || active.resize) {
         return;
     }
+    debug("minimize for", active.caption);
 
     // check for overlap with other windows
     const clients = workspace.clientList();
@@ -109,10 +117,12 @@ function minimizeOverlapping() {
         other = clients[i];
         if (overlap(active, other)) {
             // overlap: minimize other window
+            debug("overlap", other.caption);
             addMinimized(other);
             other.minimized = true;
         }
     }
+    debug();
 }
 
 // restore all previously minimized windows that are now no longer overlapping
@@ -130,6 +140,7 @@ function restoreMinimized() {
             removeMinimized(inactive);
             continue;
         }
+        debug("autorestore", inactive.caption);
 
         // check for overlap with other windows
         noOverlap = true;
@@ -138,6 +149,7 @@ function restoreMinimized() {
             other = clients[j];
             if (overlap(inactive, other)) {
                 // overlap: don't restore current window
+                debug("overlap", other.caption);
                 noOverlap = false;
                 break;
             }
@@ -145,10 +157,12 @@ function restoreMinimized() {
 
         if (noOverlap) {
             // window no longer overlaps with any others: restore
+            debug("restore", inactive.caption);
             removeMinimized(inactive);
             inactive.minimized = false;
         }
     }
+    debug();
 }
 
 // reactivate the most recent client if there are unminimized but no active clients
@@ -162,6 +176,7 @@ function reactivate() {
     if ((workspace.activeClient == null || workspace.activeClient.desktopWindow)
     && unminimized.length > 0) {
         // activate most recent client on the stack
+        debug("reactivate", unminimized[0].caption);
         workspace.activeClient = unminimized[0];
     }
 }

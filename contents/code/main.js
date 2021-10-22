@@ -4,23 +4,29 @@ KWin Script Floating Tiles
 GNU General Public License v3.0
 */
 
-///////////////////////
-// debug mode
-///////////////////////
-debugMode = true;
-function debug(...args) {if (debugMode) {console.debug(...args);}}
 
 ///////////////////////
 // configuration
 ///////////////////////
 
 const config = {
-    // whether to automatically restore minimized windows
+    // whether to automatically restore automatically minimized windows
     autoRestore: readConfig("autoRestore", true),
 
-    // whether to not prevent windows from being covered by special windows such as panel popouts or krunner
+    // whether to permit windows to be covered by special windows such as panel popouts or krunner
     ignoreSpecial: readConfig("ignoreSpecial", true)
 };
+
+
+///////////////////////
+// initialization
+///////////////////////
+
+debugMode = true;
+function debug(...args) {if (debugMode) {console.debug(...args);}}
+debug("initializing floating tiles");
+debug("floating tiles settings:", "auto restore:", config.autoRestore, "ignore special:", config.ignoreSpecial);
+
 
 ///////////////////////
 // bookkeeping
@@ -48,8 +54,9 @@ function resetMinimized(client) {
     }
 }
 
+
 ///////////////////////
-// setup
+// set up triggers
 ///////////////////////
 
 // add to watchlist when client is initially present or added
@@ -96,6 +103,7 @@ function onRemoved(client) {
     restoreMinimized();
     reactivate();
 }
+
 
 ///////////////////////
 // minimize, restore and reactivate
@@ -181,13 +189,15 @@ function reactivate() {
     }
 }
 
+
 ///////////////////////
 // compute overlap
 ///////////////////////
 
 function overlap(win1, win2) {
     return !ignoreOverlap(win1, win2)
-            && overlapHorizontal(win1, win2) && overlapVertical(win1, win2);
+        && overlapHorizontal(win1, win2)
+        && overlapVertical(win1, win2);
 }
 
 function overlapHorizontal(win1, win2) {

@@ -7,7 +7,7 @@ GNU General Public License v3.0
 ///////////////////////
 // debug mode
 ///////////////////////
-debugMode = false;
+debugMode = true;
 function debug(...args) {if (debugMode) {console.debug(...args);}}
 
 ///////////////////////

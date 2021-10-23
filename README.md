@@ -49,21 +49,12 @@ mkdir -p ~/.local/share/kservices5
 ln -sf ~/.local/share/kwin/scripts/floatingtiles/metadata.desktop ~/.local/share/kservices5/floatingtiles.desktop
 ````
 
-If that still doesn’t work, you can make the changes in the source code:
+## Usage
 
-1. Download and the code via GitHub (top right green button *Code* > *Download ZIP*) or KDE store (top right purple button *Download*) and unpack.
-2. In ` contents/code/main.js`, change the `true`/`false` values at the beginning of the file to your preferences.
-3. Reinstall the script by starting a terminal window in the `floating-tiles` folder and running the command
+### Known issues
 
-    ```bash
-    plasmapkg2 --type kwinscript -u .
-    ```
+- When using the Minimize All plasmoid, Floating Tiles will unwantedly auto-restore windows that already had been minimized.
 
-4. Restart the KWin session by starting a terminal window and running the command
-
-   ````bash
-   kwin_x11 --replace &
-   ````
 
 ## Small Print
 

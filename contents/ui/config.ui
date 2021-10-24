@@ -10,7 +10,7 @@
       <item row="0" column="0">
        <widget class="QCheckBox" name="kcfg_autoRestore">
         <property name="text">
-         <string>Automatically restore minimized windows once enough space is available again</string>
+         <string>Automatically restore previously automatically minimized windows once enough space is available again</string>
         </property>
         <property name="checked">
          <bool>true</bool>

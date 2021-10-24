@@ -54,6 +54,7 @@ ln -sf ~/.local/share/kwin/scripts/floatingtiles/metadata.desktop ~/.local/share
 ### Known issues
 
 - When using the Minimize All plasmoid, Floating Tiles will unwantedly auto-restore windows that already had been minimized.
+- Overlap prevention may not be properly applied to windows being restored from a previous session on startup.
 
 
 ## Small Print

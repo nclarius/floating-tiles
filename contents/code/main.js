@@ -12,7 +12,6 @@ GNU General Public License v3.0
 const config = {
     // whether to automatically restore automatically minimized windows
     autoRestore: readConfig("autoRestore", true),
-
     // whether to permit windows to be covered by special windows such as panel popouts or krunner
     ignoreSpecial: readConfig("ignoreSpecial", true)
 };
@@ -59,31 +58,32 @@ function resetMinimized(client) {
 // set up triggers
 ///////////////////////
 
-// add to watchlist when client is initially present or added
-const clients = workspace.clientList();
-for (var i = 0; i < clients.length; i++) {
-    onAdded(clients[i]);
-}
-workspace.clientAdded.connect(onAdded);
-function onAdded(client) {
-    client.geometryChanged.connect(onMovedResized);
-    client.clientFinishUserMovedResized.connect(onMovedResized);
-}
-
-// trigger minimize and restore when client is added or activated
+// trigger minimize and restore when client is initially present, added or activated
+workspace.clientList().forEach(client => onActivated(client));
 workspace.clientAdded.connect(onActivated);
 workspace.clientActivated.connect(onActivated);
 function onActivated(client) {
-    if (client == null) {
-        return;
-    }
+    if (client == null) return;
+    debug("\nactivated", client.caption);
     removeMinimized(client);
     minimizeOverlapping();
     restoreMinimized();
 }
 
 // trigger minimize and restore when client is moved or resized
-function onMovedResized(client) {
+workspace.clientList().forEach(client => onAdded(client));
+workspace.clientAdded.connect(onAdded);
+function onAdded(client) {
+    debug("\nadded", client.caption);
+    client.geometryChanged.connect(onRegeometrized);
+    client.clientFinishUserMovedResized.connect(onRegeometrized);
+    client.screenChanged.connect(onRegeometrized);
+    client.desktopChanged.connect(onRegeometrized);
+}
+
+function onRegeometrized(client) {
+    debug("\nregeometrized", client ? client.caption : client);
+    removeMinimized(client);
     minimizeOverlapping();
     restoreMinimized();
 }
@@ -91,6 +91,7 @@ function onMovedResized(client) {
 // trigger minimize, restore and reactivate when client minimized
 workspace.clientMinimized.connect(onMinimized);
 function onMinimized(client) {
+    debug("\nminimized", client ? client.caption : client);
     resetMinimized(client);
     restoreMinimized();
     reactivate();
@@ -99,6 +100,7 @@ function onMinimized(client) {
 // trigger minimize, restore and reactivate when client is closed
 workspace.clientRemoved.connect(onRemoved);
 function onRemoved(client) {
+    debug("\nclosed", client ? client.caption : client);
     removeMinimized(client);
     restoreMinimized();
     reactivate();
@@ -114,63 +116,65 @@ function minimizeOverlapping() {
     // get active window
     active = workspace.activeClient;
     // don't act on windows that are dead or still undergoing geometry change
-    if (active == undefined || active == null || active.move || active.resize) {
-        return;
-    }
-    debug("minimize for", active.caption);
+    if (active == undefined || active == null || active.move || active.resize) return;
+    debug("try minimize for", active.caption);
 
     // check for overlap with other windows
     const clients = workspace.clientList();
     for (var i = 0; i < clients.length; i++) {
         other = clients[i];
-        if (overlap(active, other)) {
-            // overlap: minimize other window
-            debug("overlap", other.caption);
+        if (overlap(active, other) && !other.minimized) {
+            // overlap with a relevant unminimized window: minimize other window
+            debug("minimizing", other.caption);
             addMinimized(other);
             other.minimized = true;
         }
     }
-    debug();
 }
 
 // restore all previously minimized windows that are now no longer overlapping
 function restoreMinimized() {
     // don't restore if auto-restore is disabled
-    if (!config.autoRestore) {
-        return;
-    }
+    if (!config.autoRestore) return;
 
     // iterate minimized windows
+    var toRestore = [];
     for (var i = 0; i < minimized.length; i++) {
         inactive = minimized[i];
+        debug("try restore", inactive.caption);
         // remove dead clients from to be restored windows
         if (inactive == undefined || inactive == null || !workspace.clientList().includes(inactive)) {
+            debug("removing ghost", inactive.caption);
             removeMinimized(inactive);
             continue;
         }
-        debug("autorestore", inactive.caption);
 
         // check for overlap with other windows
         noOverlap = true;
-        const clients = workspace.clientList();
-        for (var j = 0; j < clients.length; j++) {
-            other = clients[j];
-            if (overlap(inactive, other)) {
-                // overlap: don't restore current window
-                debug("overlap", other.caption);
+        var others = workspace.clientList();
+        for (var j = 0; j < others.length; j++) {
+            other = others[j];
+            if (overlap(inactive, other) && (!other.minimized || toRestore.includes(other))) {
+                // overlap with a relevant unminimized or to be unminimized window: don't restore current window
+                debug("don't restore for", other.caption);
                 noOverlap = false;
                 break;
             }
         }
 
         if (noOverlap) {
-            // window no longer overlaps with any others: restore
-            debug("restore", inactive.caption);
-            removeMinimized(inactive);
-            inactive.minimized = false;
+            // window no longer overlaps with any others: mark for restoration
+            debug("restoring", inactive.caption);
+            toRestore.push(inactive);
         }
     }
-    debug();
+
+    // restore all windows marked as such
+    for (var i = 0; i < toRestore.length; i++) {
+        inactive = toRestore[i];
+        removeMinimized(inactive);
+        inactive.minimized = false;
+    }
 }
 
 // reactivate the most recent client if there are unminimized but no active clients
@@ -184,8 +188,9 @@ function reactivate() {
     if ((workspace.activeClient == null || workspace.activeClient.desktopWindow)
     && unminimized.length > 0) {
         // activate most recent client on the stack
-        debug("reactivate", unminimized[0].caption);
-        workspace.activeClient = unminimized[0];
+        mostRecent = unminimized[0];
+        debug("reactivating", mostRecent.caption);
+        workspace.activeClient = mostRecent;
     }
 }
 
@@ -213,7 +218,6 @@ function overlapVertical(win1, win2) {
 // specify cases where not to minimize despite overlap
 function ignoreOverlap(front, back) {
     return back == front  // self
-        || back.minimized // already minimized
         || !(back.desktop == front.desktop
              || back.desktop == -1 || front.desktop == -1) // different desktop
         || front.desktopWindow || back.desktopWindow // desktop background

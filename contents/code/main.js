@@ -79,10 +79,16 @@ function onAdded(client) {
     client.clientFinishUserMovedResized.connect(onRegeometrized);
     client.screenChanged.connect(onRegeometrized);
     client.desktopChanged.connect(onRegeometrized);
+    workspace.currentDesktopChanged.connect(onRegeometrized);
+    workspace.numberScreensChanged.connect(onRegeometrized);
+    workspace.screenResized.connect(onRegeometrized);
+    workspace.virtualScreenSizeChanged.connect(onRegeometrized);
+    workspace.virtualScreenGeometryChanged.connect(onRegeometrized);
+    workspace.clientAdded.connect(function(client) {if (client.dock) onRegeometrized();});
 }
 
 function onRegeometrized(client) {
-    debug("\nregeometrized", client ? client.caption : client);
+    debug("\nregeometrized", client && client.caption ? client.caption : client);
     removeMinimized(client);
     minimizeOverlapping();
     restoreMinimized();

@@ -66,7 +66,7 @@ function onActivated(client) {
     if (client == null) return;
     debug("\nactivated", client.caption);
     removeMinimized(client);
-    minimizeOverlapping();
+    minimizeOverlapping(client);
     restoreMinimized();
 }
 
@@ -90,7 +90,7 @@ function onAdded(client) {
 function onRegeometrized(client) {
     debug("\nregeometrized", client && client.caption ? client.caption : client);
     removeMinimized(client);
-    minimizeOverlapping();
+    minimizeOverlapping(client);
     restoreMinimized();
 }
 
@@ -118,9 +118,9 @@ function onRemoved(client) {
 ///////////////////////
 
 // minimize all windows overlapped by active window
-function minimizeOverlapping() {
-    // get active window
-    active = workspace.activeClient;
+function minimizeOverlapping(active) {
+    // if no window is provided, set default to the active window
+    if (active == null || active == undefined) active = workspace.activeClient;
     // don't act on windows that are dead or still undergoing geometry change
     if (active == undefined || active == null || active.move || active.resize) return;
     debug("try minimize for", active.caption);

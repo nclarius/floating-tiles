@@ -53,7 +53,7 @@ ln -sf ~/.local/share/kwin/scripts/floatingtiles/metadata.desktop ~/.local/share
 
 ### Known issues
 
-- When using the Minimize All plasmoid, windows that had already been minimized automatically will be unwantedly unminimized.
+- With auto-restore enabled, when using the Minimize All plasmoid, windows that had already been minimized automatically will be unwantedly unminimized.
 
 
 ## Small Print

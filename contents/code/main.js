@@ -11,7 +11,7 @@ GNU General Public License v3.0
 
 const config = {
     // whether to automatically restore automatically minimized windows
-    autoRestore: readConfig("autoRestore", true),
+    autoRestore:   readConfig("autoRestore",   true),
     // whether to permit windows to be covered by special windows such as panel popouts or krunner
     ignoreSpecial: readConfig("ignoreSpecial", true)
 };
@@ -70,11 +70,11 @@ function onActivated(client) {
     restoreMinimized();
 }
 
-// trigger minimize and restore when client is moved or resized
+// set to watchlist on added and trigger minimize and restore when client is moved or resized or screen geometry changes
 workspace.clientList().forEach(client => onAdded(client));
 workspace.clientAdded.connect(onAdded);
 function onAdded(client) {
-    debug("\nadded", client.caption);
+    debug("\nadded", client.caption)
     client.geometryChanged.connect(onRegeometrized);
     client.clientFinishUserMovedResized.connect(onRegeometrized);
     client.screenChanged.connect(onRegeometrized);
@@ -86,7 +86,6 @@ function onAdded(client) {
     workspace.virtualScreenGeometryChanged.connect(onRegeometrized);
     workspace.clientAdded.connect(function(client) {if (client.dock) onRegeometrized();});
 }
-
 function onRegeometrized(client) {
     debug("\nregeometrized", client && client.caption ? client.caption : client);
     removeMinimized(client);

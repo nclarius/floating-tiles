@@ -53,7 +53,7 @@ ln -sf ~/.local/share/kwin/scripts/floatingtiles/metadata.desktop ~/.local/share
 
 ### Known issues
 
-- When using the Minimize All plasmoid, windows that had already been automatically minimized will be unwantedly restored.
+- When using the Minimize All plasmoid, windows that had already been minimized automatically will be unwantedly restored.
 - Overlap prevention may not be properly applied to windows being restored from a previous session on startup.
 
 

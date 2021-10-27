@@ -45,7 +45,7 @@ function removeMinimized(client) {
     minimized = minimized.filter(entry => entry != client);
 }
 
-// remove client from stack of minimized if it is not the most recent entry on the minimized stack (and has therefore been manually rather than automatically been minimized)
+// remove client from stack of to be restored if has been manually rather than automatically been minimized since it is not the most recent entry on the minimized stack
 // todo doesn't work with minimize all
 function resetMinimized(client) {
     if (minimized[0] != client) {
@@ -70,7 +70,7 @@ function onActivated(client) {
     restoreMinimized();
 }
 
-// set to watchlist on added and trigger minimize and restore when client is moved or resized or screen geometry changes
+// add to watchlist on added and trigger minimize and restore when client is moved or resized or screen geometry changes
 workspace.clientList().forEach(client => onAdded(client));
 workspace.clientAdded.connect(onAdded);
 function onAdded(client) {
@@ -125,9 +125,9 @@ function minimizeOverlapping(active) {
     debug("try minimize for", active.caption);
 
     // check for overlap with other windows
-    const clients = workspace.clientList();
-    for (var i = 0; i < clients.length; i++) {
-        other = clients[i];
+    var others = workspace.clientList();
+    for (var i = 0; i < others.length; i++) {
+        other = others[i];
         if (overlap(active, other) && !other.minimized) {
             // overlap with a relevant unminimized window: minimize other window
             debug("minimizing", other.caption);

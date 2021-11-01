@@ -10,9 +10,9 @@ Overlap prevention will only take effect between toplevel windows and not e.g. h
 
 By default, any window that has been automatically minimized will be automatically restored once the space above it is free again; this can be disabled in the configuration.
 
-![screenshot](screenshot.gif)
+![screenshot](img/screenshot.gif)
 
-![config](config.png)
+![config](img/config.png)
 
 [view in KDE Store](https://www.pling.com/p/1619690/)
 

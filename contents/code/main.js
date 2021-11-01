@@ -21,7 +21,7 @@ const config = {
 // initialization
 ///////////////////////
 
-debugMode = true;
+debugMode = false;
 function debug(...args) {if (debugMode) {console.debug(...args);}}
 debug("initializing floating tiles");
 debug("floating tiles settings:", "auto restore:", config.autoRestore, "ignore special:", config.ignoreSpecial);

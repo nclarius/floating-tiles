@@ -1,8 +1,8 @@
-### v3.6
+## v3.6
 
 - fix newly opened windows covered by old windows
 
-### v3.5
+## v3.5
 
 - fix floating tiles not properly applied on system startup or screen layout change
 - fix order of restoration sometimes incorrect

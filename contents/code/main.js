@@ -75,7 +75,10 @@ workspace.clientList().forEach(client => onAdded(client));
 workspace.clientAdded.connect(onAdded);
 function onAdded(client) {
     debug("\nadded", client.caption)
+    client.moveResizedChanged.connect(onRegeometrized);
     client.geometryChanged.connect(onRegeometrized);
+    client.clientGeometryChanged.connect(onRegeometrized);
+    client.frameGeometryChanged.connect(onRegeometrized);
     client.clientFinishUserMovedResized.connect(onRegeometrized);
     client.screenChanged.connect(onRegeometrized);
     client.desktopChanged.connect(onRegeometrized);
@@ -159,7 +162,8 @@ function restoreMinimized() {
         var others = workspace.clientList();
         for (var j = 0; j < others.length; j++) {
             other = others[j];
-            if (overlap(inactive, other) && (!other.minimized || toRestore.includes(other))) {
+            if (overlap(inactive, other)
+            && (!other.minimized || toRestore.includes(other))) {
                 // overlap with a relevant unminimized or to be unminimized window: don't restore current window
                 debug("don't restore for", other.caption);
                 noOverlap = false;
@@ -188,7 +192,7 @@ function reactivate() {
     unminimized = workspace.clientList().filter(client =>
            client.normalWindow
         && !client.minimized
-        && (client.desktop == workspace.currentDesktop || client.desktop == -1));
+        && (client.desktop == workspace.currentDesktop || client.onAllDesktops));
     // check if there is no active client but unminimized ones
     if ((workspace.activeClient == null || workspace.activeClient.desktopWindow)
     && unminimized.length > 0) {
@@ -224,13 +228,12 @@ function overlapVertical(win1, win2) {
 function ignoreOverlap(front, back) {
     return back == front  // self
         || !(back.desktop == front.desktop
-             || back.desktop == -1 || front.desktop == -1) // different desktop
+             || back.onAllDesktops || front.onAllDesktops) // different desktop
         || front.desktopWindow || back.desktopWindow // desktop background
         || front.dock || back.dock // panel
         || (!front.normalWindow
             && String(front.resourceClass) == String(back.resourceClass)) // special window associated with toplevel
         || (config.ignoreSpecial
             && (!front.normalWindow || front.resourceClass == "krunner")) // special window
-        || (front.resourceClass == "zoom" && front.caption == "zoom") // zoom special window
-        || front.resourceClass == "kruler"; // kruler
+        || ["zoom", "kruler"].includes(String(front.resourceClass); // excepted program
 }

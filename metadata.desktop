@@ -4,8 +4,10 @@
 
 [Desktop Entry]
 Name=Floating Tiles
+Name[de]=Schwebende Kacheln
 Name[nl]=Zwevende tegels
 Comment=Prevents windows from overlapping by minimizing and restoring windows according to available space
+Comment[de]=Verhindert Überlappen von Fenstern, indem Fenster je nach verfügbarem Platz automatisch minimiert und wiederhergestellt werden
 Comment[nl]=Voorkomt vensteroverlapping door ze te minimaliseren en herstellen op basis van de beschikbare ruimte
 Icon=preferences-system-windows
 
@@ -13,7 +15,7 @@ X-KDE-PluginInfo-Author=Natalie Clarius
 X-KDE-PluginInfo-Email=natalie_clarius@yahoo.de
 X-KDE-PluginInfo-Name=floatingtiles
 X-KDE-PluginInfo-License=GPL
-X-KDE-PluginInfo-Version=0.0
+X-KDE-PluginInfo-Version=3.6
 
 Type=Service
 X-KDE-ServiceTypes=KWin/Script,KCModule

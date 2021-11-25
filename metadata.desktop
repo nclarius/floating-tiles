@@ -11,11 +11,11 @@ Comment[de]=Verhindert Überlappen von Fenstern, indem Fenster je nach verfügba
 Comment[nl]=Voorkomt vensteroverlapping door ze te minimaliseren en herstellen op basis van de beschikbare ruimte
 Icon=preferences-system-windows
 
+X-KDE-PluginInfo-Name=floatingtiles
+X-KDE-PluginInfo-Version=3.7
 X-KDE-PluginInfo-Author=Natalie Clarius
 X-KDE-PluginInfo-Email=natalie_clarius@yahoo.de
-X-KDE-PluginInfo-Name=floatingtiles
-X-KDE-PluginInfo-License=GPL
-X-KDE-PluginInfo-Version=3.6
+X-KDE-PluginInfo-License=GPL v3.0
 
 Type=Service
 X-KDE-ServiceTypes=KWin/Script,KCModule

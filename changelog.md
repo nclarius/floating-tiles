@@ -1,3 +1,7 @@
+## v3.7
+
+- add Dutch and German translations of metadata
+
 ## v3.6
 
 - fix newly opened windows covered by old windows

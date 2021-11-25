@@ -4,7 +4,9 @@
 
 [Desktop Entry]
 Name=Floating Tiles
+Name[nl]=Zwevende tegels
 Comment=Prevents windows from overlapping by minimizing and restoring windows according to available space
+Comment[nl]=Voorkomt vensteroverlapping door ze te minimaliseren en herstellen op basis van de beschikbare ruimte
 Icon=preferences-system-windows
 
 X-KDE-PluginInfo-Author=Natalie Clarius

@@ -235,5 +235,5 @@ function ignoreOverlap(front, back) {
             && String(front.resourceClass) == String(back.resourceClass)) // special window associated with toplevel
         || (config.ignoreSpecial
             && (!front.normalWindow || front.resourceClass == "krunner")) // special window
-        || ["zoom", "kruler"].includes(String(front.resourceClass); // excepted program
+        || ["zoom", "kruler"].includes(String(front.resourceClass)); // excepted program
 }

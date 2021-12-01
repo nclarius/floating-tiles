@@ -1,3 +1,7 @@
+## v3.8
+
+- fix script not working
+
 ## v3.7
 
 - add Dutch and German translations of metadata

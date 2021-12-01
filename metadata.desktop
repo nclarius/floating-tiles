@@ -12,7 +12,7 @@ Comment[nl]=Voorkomt vensteroverlapping door ze te minimaliseren en herstellen o
 Icon=preferences-system-windows
 
 X-KDE-PluginInfo-Name=floatingtiles
-X-KDE-PluginInfo-Version=3.7
+X-KDE-PluginInfo-Version=3.8
 X-KDE-PluginInfo-Author=Natalie Clarius
 X-KDE-PluginInfo-Email=natalie_clarius@yahoo.de
 X-KDE-PluginInfo-License=GPL v3.0

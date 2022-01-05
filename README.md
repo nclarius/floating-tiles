@@ -6,7 +6,7 @@ This is intended to keep the workspace clutter-free while maximizing screen real
 
 Note that this script is an extension to be run on top of KWin and not a standalone window manager, and will also not do any automatic tiling.
 
-Overlap prevention will only take effect between toplevel windows and not e.g. hide a parent window when a dialog opens. By default, special windows not associated with any regular window such as panel popouts or KRunner will be ignored as well; this can be changed in the configuration.
+The windows to be affected can be filtered by application and window type. 
 
 By default, any window that has been automatically minimized will be automatically restored once the space above it is free again; this can be disabled in the configuration.
 

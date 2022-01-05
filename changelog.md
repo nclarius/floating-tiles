@@ -1,3 +1,11 @@
+# 4.0
+
+- filter by application
+
+## v3.9
+
+- ensure focus is assigned to the correct window when minimizing and restoring
+
 ## v3.8
 
 - fix script not working

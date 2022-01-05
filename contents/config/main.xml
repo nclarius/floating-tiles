@@ -13,5 +13,29 @@
         <label>Don't hide windows when covered by special windows such as panel popouts or KRunner</label>
         <default>true</default>
       </entry>
+        <entry name="excludeMode" type="bool">
+            <label>Whether to gap all except the specified applications</label>
+            <default>true</default>
+        </entry>
+        <entry name="includeMode" type="bool">
+            <label>Whether to gap no except the specified applications</label>
+            <default>false</default>
+        </entry>
+        <entry name="excludedAppsForeground" type="string">
+            <label>List of applications to be excluded as foreground windows</label>
+            <default></default>
+        </entry>
+        <entry name="excludedAppsBackground" type="string">
+            <label>List of applications to be excluded as background windows</label>
+            <default></default>
+        </entry>
+        <entry name="includedAppsForeground" type="string">
+            <label>List of applications to be included as foreground windows</label>
+            <default></default>
+        </entry>
+        <entry name="includedAppsBackground" type="string">
+            <label>List of applications to be included as background windows</label>
+            <default></default>
+        </entry>
   </group>
 </kcfg>

@@ -6,13 +6,13 @@ This is intended to keep the workspace clutter-free while maximizing screen real
 
 Note that this script is an extension to be run on top of KWin and not a standalone window manager, and will also not do any automatic tiling.
 
-By default, any window that has been automatically minimized will be automatically restored once the space above it is free again; this can be disabled in the configuration.
-
 The windows to be affected can be filtered by application and window type. 
+
+By default, any window that has been automatically minimized will be automatically restored once the space above it is free again; this can be disabled in the configuration.
 
 ![screenshot](img/screenshot.gif)
 
-![config](img/config.png)
+![config](img/config_.png)
 
 [view in KDE Store](https://www.pling.com/p/1619690/)
 

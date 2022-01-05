@@ -12,7 +12,7 @@ By default, any window that has been automatically minimized will be automatical
 
 ![screenshot](img/screenshot.gif)
 
-![config](img/config_.png)
+![config](img/config.png)
 
 [view in KDE Store](https://www.pling.com/p/1619690/)
 

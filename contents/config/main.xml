@@ -9,8 +9,16 @@
       <label>Automatically restore minimized windows once enough space is available again</label>
       <default>true</default>
     </entry>
+      <entry name="ignoreNonnormal" type="bool">
+        <label>Permit overlap with any non-normal windows</label>
+        <default>false</default>
+      </entry>
+        <entry name="ignoreTransient" type="bool">
+          <label>Permit overlap with transient windows belonging to the main window such as dialogs and toolbars</label>
+          <default>true</default>
+        </entry>
       <entry name="ignoreSpecial" type="bool">
-        <label>Don't hide windows when covered by special windows such as panel popouts or KRunner</label>
+        <label>Permit overlap with special windows such as panel popouts or KRunner</label>
         <default>true</default>
       </entry>
         <entry name="excludeMode" type="bool">

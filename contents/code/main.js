@@ -11,16 +11,18 @@ GNU General Public License v3.0
 
 const config = {
     // whether to automatically restore automatically minimized windows
-    aurestored:   readConfig("aurestored",   true),
-    // whether to permit windows to be covered by special windows such as panel popouts or krunner
+    autoRestore:   readConfig("autoRestore",   true),
+    // whether to permit windows to be covered by non-normal windows
+    ignoreNonnormal: readConfig("ignoreNonnormal", false),
+    ignoreTransient: readConfig("ignoreTransient", true),
     ignoreSpecial: readConfig("ignoreSpecial", true),
     // excluded/included applications
     excludeMode: readConfig("excludeMode", true),
-    excludedAppsForeground: readConfig("excludedAppsForeground", "").split(", "),
-    excludedAppsBackground: readConfig("excludedAppsBackground", "").split(", "),
+    excludedAppsForeground: readConfig("excludedAppsForeground", "").split(/,\s|,/),
+    excludedAppsBackground: readConfig("excludedAppsBackground", "").split(/,\s|,/),
     includeMode: readConfig("includeMode", false),
-    includedAppsForeground: readConfig("includedAppsForeground", "").split(", "),
-    includedAppsBackground: readConfig("includedAppsBackground", "").split(", ")
+    includedAppsForeground: readConfig("includedAppsForeground", "").split(/,\s|,/),
+    includedAppsBackground: readConfig("includedAppsBackground", "").split(/,\s|,/)
 };
 
 
@@ -31,14 +33,19 @@ const config = {
 debugMode = false;
 function debug(...args) {if (debugMode) {console.debug(...args);}}
 debug("initializing floating tiles");
-debug("floating tiles settings:", "auto restore:", config.aurestored, "ignore special:", config.ignoreSpecial);
-debug("exclude:", config.excludeMode, config.excludedAppsForeground, config.excludedAppsBackground);
-debug("include:", config.includeMode, config.includedAppsForeground, config.includedAppsBackground);
+debug("floating tiles settings:");
+debug("auto restore:", config.autoRestore);
+debug("ignore (non-normal, transient, special):", config.ignoreNonnormal, config.ignoreTransient, config.ignoreSpecial);
+debug("exclude (fg, bg):", config.excludeMode, config.excludedAppsForeground, config.excludedAppsBackground);
+debug("include (fg, bg):", config.includeMode, config.includedAppsForeground, config.includedAppsBackground);
 
 
 ///////////////////////
 // bookkeeping
 ///////////////////////
+
+// keep track of added windows
+var added = [];
 
 // keep track of active windows
 var active = [];
@@ -81,8 +88,8 @@ function resetMinimized(client) {
 // keep track of restored windows
 var restored = [];
 
-// keep track of added windows
-var recentAdded = workspace.activeClient;
+// keep track of removed windows
+var removed = false;
 
 
 ///////////////////////
@@ -94,13 +101,12 @@ workspace.clientList().forEach(client => onActivated(client));
 workspace.clientAdded.connect(onActivated);
 workspace.clientActivated.connect(onActivated);
 function onActivated(client) {
-    if (client == null) return;
+    if (client == null || client == undefined) return;
+    if (undoAutoReactivate()) return;
     debug("\nactivated", client.caption);
     addActive(client);
     removeMinimized(client);
     minimizeOverlapping(client);
-    reactivateAdded();
-    restoreMinimized();
 }
 
 // add to watchlist on added and trigger minimize and restore when client is moved or resized or screen geometry changes
@@ -108,8 +114,7 @@ workspace.clientList().forEach(client => onAdded(client));
 workspace.clientAdded.connect(onAdded);
 function onAdded(client) {
     debug("\nadded", client.caption);
-    // remember active client
-    recentAdded = client;
+    added = [client];
     client.moveResizedChanged.connect(onRegeometrized);
     client.geometryChanged.connect(onRegeometrized);
     client.clientGeometryChanged.connect(onRegeometrized);
@@ -134,11 +139,10 @@ function onRegeometrized(client) {
 // trigger minimize, restore and reactivate when client minimized
 workspace.clientMinimized.connect(onMinimized);
 function onMinimized(client) {
-    debug("\nminimized", client ? client.caption : client);
+    debug("\nminimized", client && client.caption ? client.caption : client);
     resetMinimized(client);
     if (!minimized.includes(client)) { // manually minimized
         removeActive(client);
-        reactivateRemoved();
     }
     restoreMinimized();
 }
@@ -146,11 +150,11 @@ function onMinimized(client) {
 // trigger minimize, restore and reactivate when client is closed
 workspace.clientRemoved.connect(onRemoved);
 function onRemoved(client) {
-    debug("\nclosed", client ? client.caption : client);
+    debug("\nclosed", client && client.caption ? client.caption : client);
     removeActive(client);
     removeMinimized(client);
-    reactivateRemoved();
     restoreMinimized();
+    removed = true;
 }
 
 
@@ -169,7 +173,7 @@ function minimizeOverlapping(active) {
     // check for overlap with other windows
     var others = workspace.clientList();
     for (var i = 0; i < others.length; i++) {
-        other = others[i];
+        var other = others[i];
         if (overlap(active, other) && !other.minimized) {
             // overlap with a relevant unminimized window: minimize other window
             debug("minimizing", other.caption);
@@ -182,19 +186,22 @@ function minimizeOverlapping(active) {
 // restore all previously minimized windows that are now no longer overlapping
 function restoreMinimized() {
     // don't restore if auto-restore is disabled
-    if (!config.aurestored) return;
+    if (!config.autoRestore) return;
 
     // iterate minimized windows
-    minimized = minimized.filter(client => client != undefined);
-    for (var i = 0; i < minimized.length; i++) {
-        inactive = minimized[i];
+    minimized = minimized.filter(client => client != null && client != undefined
+        && client.minimized);
+    var restorable = minimized.filter(client =>
+        (client.desktop == workspace.currentDesktop || client.onAllDesktops));
+    for (var i = 0; i < restorable.length; i++) {
+        var inactive = restorable[i];
         debug("try restore", inactive.caption);
 
         // check for overlap with other windows
-        noOverlap = true;
+        var noOverlap = true;
         var others = workspace.clientList();
         for (var j = 0; j < others.length; j++) {
-            other = others[j];
+            var other = others[j];
             if ((overlap(inactive, other) || overlap(other, inactive)) && ((!other.minimized) || restored.includes(other))) {
                 // overlap with a relevant unminimized or to be unminimized window: don't restore current window
                 debug("don't restore for", other.caption);
@@ -212,34 +219,35 @@ function restoreMinimized() {
 
     // restore all windows marked as such
     for (var i = 0; i < restored.length; i++) {
-        inactive = restored[i];
+        var inactive = restored[i];
         removeMinimized(inactive);
         inactive.minimized = false;
     }
     restored = [];
-}
 
-// ensure added window remains active
-function reactivateAdded() {
-    if (recentAdded == undefined || recentAdded == null) return;
-    if (workspace.activeClient != recentAdded) {
-       debug("reactivating recent added", recentAdded, recentAdded.caption, recentAdded == undefined, recentAdded == null);
-       workspace.activeClient = recentAdded;
-    }
-    recentAdded = undefined;
+    // reactivate the most recent active client
+    reactivateRecent();
 }
 
 // reactivate the most recent active client after another has been removed
-function reactivateRemoved() {
+function reactivateRecent() {
     // get reactivable clients on current desktop
-    active = active.filter(client => client != undefined);
-    reactivable = active.filter(client =>
+    var reactivable = active.filter(client =>
         (client.desktop == workspace.currentDesktop || client.onAllDesktops));
     if (reactivable.length == 0) return;
     // activate most recent client on the stack
-    recentActive = reactivable[0];
+    var recentActive =  reactivable[0];
     debug("reactivating recent active", recentActive.caption);
-    workspace.activeClient = recentActive; // todo: doesn't work; immediately afterwards active client is null
+    workspace.activeClient = recentActive;
+}
+
+// undo the most recent activation if a client has automatically been wrongly reactivated after another has been removed
+function undoAutoReactivate() {
+    if (removed) {
+        removed = false;
+        reactivateRecent();
+        return true;
+    }
 }
 
 
@@ -265,22 +273,20 @@ function overlapVertical(win1, win2) {
 
 // specify cases where not to minimize despite overlap
 function ignoreOverlap(front, back) {
-    return back == front  // self
+    return back == front // self
+        || !(back.desktop == front.desktop // different desktop
+             || back.onAllDesktops || front.onAllDesktops)
+        || [front, back].some(w => w.desktopWindow || w.dock || w.notification || w.criticalNotification || w.onScreenDisplay) // desktop element
+        || (config.ignoreNonnormal && [front, back].some(win => !win.normalWindow))
+        || (config.ignoreTransient && [front, back].some(win => win.transient) && // transient window belonging to the same main window
+            ((front.transient && front.transientFor == back)
+             || (back.transient && back.transientFor == front)
+             || (front.transient && back.transient && front.transientFor == back.transientFor)))
+        || (config.ignoreSpecial && [front, back].some(win => win.specialWindow || win.resourceClass == "krunner"))
         || (config.excludeMode // excluded program
             && (config.excludedAppsForeground.includes(String(front.resourceClass))
-            || config.excludedAppsBackground.includes(String(back.resourceClass))))
+                || config.excludedAppsBackground.includes(String(back.resourceClass))))
         || (config.includeMode // non-included program
             && ! (config.includedAppsForeground.includes(String(front.resourceClass))
-            || config.includedAppsBackground.includes(String(back.resourceClass))))
-        || !(back.desktop == front.desktop
-             || back.onAllDesktops || front.onAllDesktops) // different desktop
-        || front.desktopWindow || back.desktopWindow // desktop background
-        || front.dock || back.dock // panel
-        || ((!front.normalWindow
-            && String(front.resourceClass) == String(back.resourceClass))
-         || (String(front.resourceClass) == "dolphin"
-            && (String(front.resourceName).startsWith("Copying") || String(front.resourceName).startsWith("Moving")) || String(front.resourceName).startsWith("Progress Dialog"))) // special window associated with toplevel
-        || (config.ignoreSpecial
-            && (!front.normalWindow || String(front.resourceClass) == "krunner")) // special window
-        || ["zoom", "kruler"].includes(String(front.resourceClass)); // excepted program
+                || config.includedAppsBackground.includes(String(back.resourceClass))))
 }

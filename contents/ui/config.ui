@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>695</width>
-    <height>575</height>
+    <width>700</width>
+    <height>708</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -40,6 +40,53 @@
       </widget>
      </item>
      <item>
+      <widget class="QGroupBox" name="groupBox_3">
+       <property name="title">
+        <string>Window types</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Permit overlap with:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="kcfg_ignoreNonnormal">
+            <property name="text">
+             <string>any non-normal windows</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="kcfg_ignoreTransient">
+            <property name="text">
+             <string>transient windows belonging to the same main window such as dialogs or toolbars</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="kcfg_ignoreSpecial">
+            <property name="text">
+             <string>special windows such as panel popouts or KRunner</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
       <widget class="QGroupBox" name="groupBox_2">
        <property name="title">
         <string>Applications</string>
@@ -47,16 +94,6 @@
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_2">
-          <item>
-           <widget class="QCheckBox" name="kcfg_ignoreSpecial">
-            <property name="text">
-             <string>Don't hide windows when covered by special windows such as panel popouts or KRunner</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
           <item>
            <spacer name="spacer_excludeMode">
             <property name="orientation">
@@ -339,69 +376,69 @@ hide that window if overlapping other windows are in the foreground:</string>
  </widget>
  <resources/>
  <connections>
- <connection>
-  <sender>kcfg_excludeMode</sender>
-  <signal>toggled(bool)</signal>
-  <receiver>kcfg_excludedAppsForeground</receiver>
-  <slot>setEnabled(bool)</slot>
-  <hints>
-   <hint type="sourcelabel">
-    <x>20</x>
-    <y>20</y>
-   </hint>
-   <hint type="destinationlabel">
-    <x>20</x>
-    <y>20</y>
-   </hint>
-  </hints>
- </connection>
- <connection>
-  <sender>kcfg_excludeMode</sender>
-  <signal>toggled(bool)</signal>
-  <receiver>kcfg_excludedAppsBackground</receiver>
-  <slot>setEnabled(bool)</slot>
-  <hints>
-   <hint type="sourcelabel">
-    <x>20</x>
-    <y>20</y>
-   </hint>
-   <hint type="destinationlabel">
-    <x>20</x>
-    <y>20</y>
-   </hint>
-  </hints>
- </connection>
- <connection>
-  <sender>kcfg_includeMode</sender>
-  <signal>toggled(bool)</signal>
-  <receiver>kcfg_includedAppsForeground</receiver>
-  <slot>setEnabled(bool)</slot>
-  <hints>
-   <hint type="sourcelabel">
-    <x>20</x>
-    <y>20</y>
-   </hint>
-   <hint type="destinationlabel">
-    <x>20</x>
-    <y>20</y>
-   </hint>
-  </hints>
- </connection>
- <connection>
-  <sender>kcfg_includeMode</sender>
-  <signal>toggled(bool)</signal>
-  <receiver>kcfg_includedAppsBackground</receiver>
-  <slot>setEnabled(bool)</slot>
-  <hints>
-   <hint type="sourcelabel">
-    <x>20</x>
-    <y>20</y>
-   </hint>
-   <hint type="destinationlabel">
-    <x>20</x>
-    <y>20</y>
-   </hint>
-  </hints>
- </connection>
-</connections>
+  <connection>
+   <sender>kcfg_excludeMode</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_excludedAppsForeground</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_excludeMode</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_excludedAppsBackground</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_includeMode</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_includedAppsForeground</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_includeMode</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_includedAppsBackground</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

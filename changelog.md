@@ -1,4 +1,14 @@
-# 4.0
+# v5.0
+
+- more fine-grained filter by window type
+- improve parsing of window classes in configuration
+
+## v4.1
+
+- improve focus restoration behavior
+- improve efficiency
+
+# v4.0
 
 - filter by application
 

@@ -31,13 +31,13 @@ const config = {
 ///////////////////////
 
 debugMode = false;
-function debug(...args) {if (debugMode) {console.debug(...args);}}
-debug("initializing floating tiles");
-debug("floating tiles settings:");
+function debug(...args) {if (debugMode) {console.debug("Floating Tiles:", ...args);}}
+debug("initializing");
 debug("auto restore:", config.autoRestore);
 debug("ignore (non-normal, transient, special):", config.ignoreNonnormal, config.ignoreTransient, config.ignoreSpecial);
 debug("exclude (fg, bg):", config.excludeMode, config.excludedAppsForeground, config.excludedAppsBackground);
 debug("include (fg, bg):", config.includeMode, config.includedAppsForeground, config.includedAppsBackground);
+console.debug("");
 
 
 ///////////////////////

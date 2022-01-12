@@ -14,8 +14,6 @@ By default, any window that has been automatically minimized will be automatical
 
 ![config](img/config.png)
 
-[view in KDE Store](https://www.pling.com/p/1619690/)
-
 ## Installation
 
 ### Dependencies
@@ -63,7 +61,7 @@ ln -sf ~/.local/share/kwin/scripts/floatingtiles/metadata.desktop ~/.local/share
 This work is licensed under the GNU General Public License v3.0.  
 This program comes with absolutely no warranty.  
 This is free software, and you are welcome to redistribute and/or modify it under certain conditions.  
-
-If you would like to thank me, you can always make me happy with [a review](https://www.pling.com/p/1619690/) or a cup of coffee:  
+If you would like to thank me, you can always make me happy with a review or a cup of coffee:  
+<a href="https://store.kde.org/p/1619690"><img src="img/kdestore.png" height="35"/></a>
 <a href="https://www.paypal.com/donate/?hosted_button_id=7LUUJD83BWRM4"><img src="https://www.paypalobjects.com/en_US/DK/i/btn/btn_donateCC_LG.gif" height="35"/></a>&nbsp;&nbsp;<a href="https://www.buymeacoffee.com/nclarius"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="35"/></a>
 

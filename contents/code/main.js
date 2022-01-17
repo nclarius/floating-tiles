@@ -30,7 +30,7 @@ const config = {
 // initialization
 ///////////////////////
 
-debugMode = false;
+debugMode = true;
 function debug(...args) {if (debugMode) {console.debug("Floating Tiles:", ...args);}}
 debug("initializing");
 debug("auto restore:", config.autoRestore);
@@ -102,7 +102,7 @@ workspace.clientAdded.connect(onActivated);
 workspace.clientActivated.connect(onActivated);
 function onActivated(client) {
     if (client == null || client == undefined) return;
-    if (undoAutoReactivate()) return;
+    if (undoAutoReactivate(client)) return;
     debug("\nactivated", client.caption);
     addActive(client);
     removeMinimized(client);
@@ -130,7 +130,9 @@ function onAdded(client) {
     if (client.dock) workspace.clientList().forEach(client => onRegeometrized(client));
 }
 function onRegeometrized(client) {
+    // don't act on windows that are still undergoing geometry change
     debug("\nregeometrized", client && client.caption ? client.caption : client);
+    if (!(client == null || client == undefined) && (client.move || client.resize)) return;
     removeMinimized(client);
     minimizeOverlapping(client);
     restoreMinimized();
@@ -164,10 +166,9 @@ function onRemoved(client) {
 
 // minimize all windows overlapped by active window
 function minimizeOverlapping(active) {
-    // if no window is provided, set default to the active window
+    // if no window is provided, try the active window, if that fails too abort
     if (active == null || active == undefined) active = workspace.activeClient;
-    // don't act on windows that are dead or still undergoing geometry change
-    if (active == undefined || active == null || active.move || active.resize) return;
+    if (active == undefined || active == null) return;
     debug("try minimize for", active.caption);
 
     // check for overlap with other windows
@@ -242,11 +243,15 @@ function reactivateRecent() {
 }
 
 // undo the most recent activation if a client has automatically been wrongly reactivated after another has been removed
-function undoAutoReactivate() {
+function undoAutoReactivate(client) {
     if (removed) {
         removed = false;
-        reactivateRecent();
-        return true;
+        if (client.normallWindow) {
+            debug("undo auto reactivate", client.caption);
+            reactivateRecent();
+            return true;
+        }
+        return false;
     }
 }
 

@@ -29,7 +29,7 @@ By default, any window that has been automatically minimized will be automatical
 
 ```bash
 git clone https://github.com/nclarius/floating-tiles.git
-plasmapkg2 --type kwinscript -i floatingtiles
+plasmapkg2 --type kwinscript -i floating-tiles
 kwriteconfig5 --file kwinrc --group Plugins --key floatingtilesEnabled true
 qdbus org.kde.KWin /KWin reconfigure
 ```

@@ -30,7 +30,7 @@ const config = {
 // initialization
 ///////////////////////
 
-debugMode = false;
+debugMode = true;
 function debug(...args) {if (debugMode) {console.debug("Floating Tiles:", ...args);}}
 debug("initializing");
 debug("auto restore:", config.autoRestore);

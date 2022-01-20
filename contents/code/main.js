@@ -30,7 +30,7 @@ const config = {
 // initialization
 ///////////////////////
 
-debugMode = true;
+debugMode = false;
 function debug(...args) {if (debugMode) {console.debug("Floating Tiles:", ...args);}}
 debug("initializing");
 debug("auto restore:", config.autoRestore);
@@ -115,11 +115,13 @@ workspace.clientAdded.connect(onAdded);
 function onAdded(client) {
     debug("\nadded", client.caption);
     added = [client];
-    client.moveResizedChanged.connect(onRegeometrized);
-    client.geometryChanged.connect(onRegeometrized);
-    client.clientGeometryChanged.connect(onRegeometrized);
-    client.frameGeometryChanged.connect(onRegeometrized);
-    client.clientFinishUserMovedResized.connect(onRegeometrized);
+    client.geometryChanged.connect(tileGaps);
+    client.clientGeometryChanged.connect(tileGaps);
+    client.frameGeometryChanged.connect(tileGaps);
+    client.clientFinishUserMovedResized.connect(tileGaps);
+    client.moveResizedChanged.connect(tileGaps);
+    client.fullScreenChanged.connect(onRegeometrized);
+    client.clientMaximizedStateChanged.connect(onRegeometrized);
     client.screenChanged.connect(onRegeometrized);
     client.desktopChanged.connect(onRegeometrized);
     workspace.currentDesktopChanged.connect(onRegeometrized);
@@ -131,8 +133,8 @@ function onAdded(client) {
 }
 function onRegeometrized(client) {
     // don't act on windows that are still undergoing geometry change
-    debug("\nregeometrized", client && client.caption ? client.caption : client);
-    if (!(client == null || client == undefined) && (client.move || client.resize)) return;
+    if (client == null || client == undefined || client.caption == undefined || client.caption == "Plasma" || client.move || client.resize) return;
+    debug("\nregeometrized", client.caption);
     removeMinimized(client);
     minimizeOverlapping(client);
     restoreMinimized();
@@ -246,7 +248,7 @@ function reactivateRecent() {
 function undoAutoReactivate(client) {
     if (removed) {
         removed = false;
-        if (client.normallWindow) {
+        if (client.normallWindow || client.desktopWindow) {
             debug("undo auto reactivate", client.caption);
             reactivateRecent();
             return true;

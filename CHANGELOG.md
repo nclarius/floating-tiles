@@ -2,7 +2,6 @@
 
 - more fine-grained filter by window type
 - improve parsing of window classes in configuration
-- improve performance
 
 ## v4.1
 

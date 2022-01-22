@@ -14,7 +14,7 @@
         <default>false</default>
       </entry>
         <entry name="ignoreTransient" type="bool">
-          <label>Permit overlap with transient windows belonging to the main window such as dialogs and toolbars</label>
+          <label>Permit overlap with transient windows belonging to the toplevel window such as dialogs and toolbars</label>
           <default>true</default>
         </entry>
       <entry name="ignoreSpecial" type="bool">

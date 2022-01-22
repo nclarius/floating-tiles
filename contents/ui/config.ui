@@ -64,7 +64,7 @@
           <item>
            <widget class="QCheckBox" name="kcfg_ignoreTransient">
             <property name="text">
-             <string>transient windows belonging to the same main window such as dialogs or toolbars</string>
+             <string>transient windows belonging to the same toplevel window such as dialogs or toolbars</string>
             </property>
             <property name="checked">
              <bool>true</bool>

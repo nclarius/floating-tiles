@@ -106,7 +106,7 @@ function onActivated(client) {
     debug("\nactivated", client.caption);
     addActive(client);
     removeMinimized(client);
-    minimizeOverlapping(client);
+    onRegeometrized(client);
 }
 
 // add to watchlist on added and trigger minimize and restore when client is moved or resized or screen geometry changes
@@ -115,11 +115,11 @@ workspace.clientAdded.connect(onAdded);
 function onAdded(client) {
     debug("\nadded", client.caption);
     added = [client];
-    client.geometryChanged.connect(tileGaps);
-    client.clientGeometryChanged.connect(tileGaps);
-    client.frameGeometryChanged.connect(tileGaps);
-    client.clientFinishUserMovedResized.connect(tileGaps);
-    client.moveResizedChanged.connect(tileGaps);
+    client.geometryChanged.connect(onRegeometrized);
+    client.clientGeometryChanged.connect(onRegeometrized);
+    client.frameGeometryChanged.connect(onRegeometrized);
+    client.clientFinishUserMovedResized.connect(onRegeometrized);
+    client.moveResizedChanged.connect(onRegeometrized);
     client.fullScreenChanged.connect(onRegeometrized);
     client.clientMaximizedStateChanged.connect(onRegeometrized);
     client.screenChanged.connect(onRegeometrized);
@@ -136,7 +136,7 @@ function onRegeometrized(client) {
     if (client == null || client == undefined || client.caption == undefined || client.caption == "Plasma" || client.move || client.resize) return;
     debug("\nregeometrized", client.caption);
     removeMinimized(client);
-    minimizeOverlapping(client);
+    onRegeometrized(client);
     restoreMinimized();
 }
 
@@ -167,7 +167,7 @@ function onRemoved(client) {
 ///////////////////////
 
 // minimize all windows overlapped by active window
-function minimizeOverlapping(active) {
+function onRegeometrized(active) {
     // if no window is provided, try the active window, if that fails too abort
     if (active == null || active == undefined) active = workspace.activeClient;
     if (active == undefined || active == null) return;
@@ -234,6 +234,7 @@ function restoreMinimized() {
 
 // reactivate the most recent active client after another has been removed
 function reactivateRecent() {
+    debug("checking to reactivate recent active");
     // get reactivable clients on current desktop
     var reactivable = active.filter(client =>
         (client.desktop == workspace.currentDesktop || client.onAllDesktops));

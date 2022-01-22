@@ -1,3 +1,7 @@
+## v5.1
+
+- fix trigger on geometry change not working
+
 # v5.0
 
 - more fine-grained filter by window type

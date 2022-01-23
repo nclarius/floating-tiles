@@ -103,18 +103,20 @@ workspace.clientActivated.connect(onActivated);
 function onActivated(client) {
     if (client == null || client == undefined) return;
     if (undoAutoReactivate(client)) return;
-    debug("\nactivated", client.caption);
+    debug("activated", client.caption);
     addActive(client);
     removeMinimized(client);
-    onRegeometrized(client);
+    minimizeOverlapping(client);
+    debug("");
 }
 
 // add to watchlist on added and trigger minimize and restore when client is moved or resized or screen geometry changes
 workspace.clientList().forEach(client => onAdded(client));
 workspace.clientAdded.connect(onAdded);
 function onAdded(client) {
-    debug("\nadded", client.caption);
+    debug("added", client.caption);
     added = [client];
+    debug("");
     client.geometryChanged.connect(onRegeometrized);
     client.clientGeometryChanged.connect(onRegeometrized);
     client.frameGeometryChanged.connect(onRegeometrized);
@@ -133,32 +135,35 @@ function onAdded(client) {
 }
 function onRegeometrized(client) {
     // don't act on windows that are still undergoing geometry change
-    if (client == null || client == undefined || client.caption == undefined || client.caption == "Plasma" || client.move || client.resize) return;
-    debug("\nregeometrized", client.caption);
+    if (client == null || client == undefined || client.caption == "Plasma" || client.move || client.resize) return;
+    debug("regeometrized", client.caption);
     removeMinimized(client);
-    onRegeometrized(client);
-    restoreMinimized();
+    minimizeOverlapping(client);
+    restoreMinimized(client);
+    debug("");
 }
 
 // trigger minimize, restore and reactivate when client minimized
 workspace.clientMinimized.connect(onMinimized);
 function onMinimized(client) {
-    debug("\nminimized", client && client.caption ? client.caption : client);
+    debug("minimized", client && client.caption ? client.caption : client);
     resetMinimized(client);
     if (!minimized.includes(client)) { // manually minimized
         removeActive(client);
     }
-    restoreMinimized();
+    restoreMinimized(client);
+    debug("");
 }
 
 // trigger minimize, restore and reactivate when client is closed
 workspace.clientRemoved.connect(onRemoved);
 function onRemoved(client) {
-    debug("\nclosed", client && client.caption ? client.caption : client);
+    debug("closed", client && client.caption ? client.caption : client);
     removeActive(client);
     removeMinimized(client);
-    restoreMinimized();
+    restoreMinimized(client);
     removed = true;
+    debug("");
 }
 
 
@@ -167,7 +172,7 @@ function onRemoved(client) {
 ///////////////////////
 
 // minimize all windows overlapped by active window
-function onRegeometrized(active) {
+function minimizeOverlapping(active) {
     // if no window is provided, try the active window, if that fails too abort
     if (active == null || active == undefined) active = workspace.activeClient;
     if (active == undefined || active == null) return;
@@ -187,9 +192,10 @@ function onRegeometrized(active) {
 }
 
 // restore all previously minimized windows that are now no longer overlapping
-function restoreMinimized() {
+function restoreMinimized(trigger) {
     // don't restore if auto-restore is disabled
     if (!config.autoRestore) return;
+    debug("try restore for", trigger.caption);
 
     // iterate minimized windows
     minimized = minimized.filter(client => client != null && client != undefined

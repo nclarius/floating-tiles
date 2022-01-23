@@ -1,3 +1,7 @@
+## v5.2
+
+- fix restore on geometry change not working
+
 ## v5.1
 
 - fix trigger on geometry change not working

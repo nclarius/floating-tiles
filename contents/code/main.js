@@ -30,7 +30,7 @@ const config = {
 // initialization
 ///////////////////////
 
-debugMode = true;
+debugMode = false;
 function debug(...args) {if (debugMode) {console.debug("Floating Tiles:", ...args);}}
 debug("initializing");
 debug("auto restore:", config.autoRestore);
@@ -117,11 +117,11 @@ function onAdded(client) {
     debug("added", client.caption);
     added = [client];
     debug("");
-    client.geometryChanged.connect(onRegeometrized);
-    client.clientGeometryChanged.connect(onRegeometrized);
+    // client.geometryChanged.connect(onRegeometrized);
+    // client.clientGeometryChanged.connect(onRegeometrized);
     client.frameGeometryChanged.connect(onRegeometrized);
     client.clientFinishUserMovedResized.connect(onRegeometrized);
-    client.moveResizedChanged.connect(onRegeometrized);
+    // client.moveResizedChanged.connect(onRegeometrized);
     client.fullScreenChanged.connect(onRegeometrized);
     client.clientMaximizedStateChanged.connect(onRegeometrized);
     client.screenChanged.connect(onRegeometrized);
@@ -133,6 +133,7 @@ function onAdded(client) {
     workspace.virtualScreenGeometryChanged.connect(onRegeometrized);
     if (client.dock) workspace.clientList().forEach(client => onRegeometrized(client));
 }
+
 function onRegeometrized(client) {
     // don't act on windows that are still undergoing geometry change
     if (client == null || client == undefined || client.caption == "Plasma" || client.move || client.resize) return;
@@ -175,7 +176,7 @@ function onRemoved(client) {
 function minimizeOverlapping(active) {
     // if no window is provided, try the active window, if that fails too abort
     if (active == null || active == undefined) active = workspace.activeClient;
-    if (active == undefined || active == null) return;
+    if (active == null || active == undefined) return;
     debug("try minimize for", active.caption);
 
     // check for overlap with other windows
@@ -204,6 +205,7 @@ function restoreMinimized(trigger) {
         (client.desktop == workspace.currentDesktop || client.onAllDesktops));
     for (var i = 0; i < restorable.length; i++) {
         var inactive = restorable[i];
+        if (inactive == null || inactive == undefined) continue;
         debug("try restore", inactive.caption);
 
         // check for overlap with other windows
@@ -244,11 +246,13 @@ function reactivateRecent() {
     // get reactivable clients on current desktop
     var reactivable = active.filter(client =>
         (client.desktop == workspace.currentDesktop || client.onAllDesktops));
-    if (reactivable.length == 0) return;
+    if (reactivable.length == 0) return false;
     // activate most recent client on the stack
-    var recentActive =  reactivable[0];
+    var recentActive = reactivable[0];
+    if (recentActive == null || recentActive == undefined) return false;
     debug("reactivating recent active", recentActive.caption);
     workspace.activeClient = recentActive;
+    return true;
 }
 
 // undo the most recent activation if a client has automatically been wrongly reactivated after another has been removed
@@ -257,8 +261,7 @@ function undoAutoReactivate(client) {
         removed = false;
         if (client.normallWindow || client.desktopWindow) {
             debug("undo auto reactivate", client.caption);
-            reactivateRecent();
-            return true;
+            return reactivateRecent();
         }
         return false;
     }

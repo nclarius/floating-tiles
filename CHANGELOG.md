@@ -1,3 +1,7 @@
+## v5.3
+
+- fix minimize and restore on manual move/resize not working
+
 ## v5.2
 
 - fix restore on geometry change not working

@@ -20,18 +20,16 @@ By default, any window that has been automatically minimized will be automatical
 
 `kwin` version ≥ 5.21.
 
-### Method 1: via graphical interface
+### Installation via graphical interface
 
-1. Install the script via *System Settings* > *Window Management* > *KWin Scripts* > *Get New Scripts …* > search for *Floating Tiles* > *Install*.
-2. Activate the script by selecting the checkbox in the *Floating Tiles* entry.
+*System Settings* > *Window Management* > *KWin Scripts* > *Get New Scripts …* > search for *Floating Tiles* > *Install*.
 
-### Method 2: via command line
+### Installation via command line
 
 ```bash
 git clone https://github.com/nclarius/floating-tiles.git
-plasmapkg2 --type kwinscript -i floating-tiles
-kwriteconfig5 --file kwinrc --group Plugins --key floatingtilesEnabled true
-qdbus org.kde.KWin /KWin reconfigure
+cd floating-tiles
+./install.sh
 ```
 
 ## Configuration
@@ -39,13 +37,6 @@ qdbus org.kde.KWin /KWin reconfigure
 *System Settings* > *Window Management* > *KWin Scripts* > configuration button in the *Floating Tiles* entry.
 
 You may have to disable the script, apply, reenable, and reapply in order for the changes to take effect.
-
-If the configuration button is missing (this is due to a central limitation with the KWin script installation component), try the following:
-
-````bash
-mkdir -p ~/.local/share/kservices5
-ln -sf ~/.local/share/kwin/scripts/floatingtiles/metadata.desktop ~/.local/share/kservices5/floatingtiles.desktop
-````
 
 ## Usage
 

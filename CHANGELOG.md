@@ -1,3 +1,11 @@
+## v5.4
+- fix configuration menu not available
+- fix error in logging function
+- update package structure
+- add install/uninstall scripts
+- make script automatically enabled on install
+- add changelog in BBCode format
+
 ## v5.3
 
 - fix minimize and restore on manual move/resize not working

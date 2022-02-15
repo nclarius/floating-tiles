@@ -1,0 +1,28 @@
+# KWin Script Floating Tiles
+# (C) 2021 Natalie Clarius <natalie_clarius@yahoo.de>
+# GNU General Public License v3.0
+
+[Desktop Entry]
+Name=Floating Tiles
+Name[de]=Schwebende Kacheln
+Name[nl]=Zwevende tegels
+Comment=Prevents windows from overlapping by minimizing and restoring windows according to available space
+Comment[de]=Verhindert Überlappen von Fenstern, indem Fenster je nach verfügbarem Platz automatisch minimiert und wiederhergestellt werden
+Comment[nl]=Voorkomt vensteroverlapping door ze te minimaliseren en herstellen op basis van de beschikbare ruimte
+Icon=preferences-system-windows
+
+X-KDE-PluginInfo-Name=floatingtiles
+X-KDE-PluginInfo-Version=5.5
+X-KDE-PluginInfo-Author=Natalie Clarius
+X-KDE-PluginInfo-Email=natalie_clarius@yahoo.de
+X-KDE-PluginInfo-License=GPL v3.0
+X-KDE-PluginInfo-Website=https://store.kde.org/p/1619690
+
+Type=Service
+X-Plasma-API=javascript
+X-Plasma-MainScript=code/main.js
+X-KDE-ServiceTypes=KWin/Script,KCModule
+X-KDE-ConfigModule=kwin/effects/configs/kcm_kwin4_genericscripted
+X-KDE-PluginKeyword=floatingtiles
+X-KDE-ParentComponents=floatingtiles
+X-KDE-PluginInfo-EnabledByDefault=true

@@ -1,3 +1,6 @@
+## v5.5
+- fix metadata not found
+
 ## v5.4
 - fix configuration menu not available
 - fix error in logging function

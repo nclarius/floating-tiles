@@ -36,7 +36,7 @@ cd floating-tiles
 
 *System Settings* > *Window Management* > *KWin Scripts* > configuration button in the *Floating Tiles* entry.
 
-You may have to disable the script, apply, reenable, and reapply in order for the changes to take effect.
+You may need to disable the script, apply, reenable, and reapply in order for the changes to take effect.
 
 ## Usage
 

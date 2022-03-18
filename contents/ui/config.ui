@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>700</width>
-    <height>708</height>
+    <width>693</width>
+    <height>680</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -64,17 +64,7 @@
           <item>
            <widget class="QCheckBox" name="kcfg_ignoreTransient">
             <property name="text">
-             <string>transient windows belonging to the same toplevel window such as dialogs or toolbars</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="kcfg_ignoreSpecial">
-            <property name="text">
-             <string>special windows such as panel popouts or KRunner</string>
+             <string>transient windows belonging to the same toplevel window, such as dialogs or toolbars</string>
             </property>
             <property name="checked">
              <bool>true</bool>
@@ -167,7 +157,11 @@ don't hide overlapping other windows in the background:</string>
              </spacer>
             </item>
             <item>
-             <widget class="QLineEdit" name="kcfg_excludedAppsForeground"/>
+             <widget class="QLineEdit" name="kcfg_excludedAppsForeground">
+              <property name="text">
+               <string>plasmashell, krunner</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>

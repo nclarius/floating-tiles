@@ -51,6 +51,7 @@ qdbus org.kde.KWin /KWin reconfigure
 
 ### Known issues
 
+- When closing or minimizing a window, restored windows will not gain focus.
 - With auto-restore enabled, when using the Minimize All plasmoid, windows that had already been minimized automatically will be unwantedly unminimized.
 
 

@@ -22,7 +22,8 @@ By default, any window that has been automatically minimized will be automatical
 
 ### Installation via graphical interface
 
-*System Settings* > *Window Management* > *KWin Scripts* > *Get New Scripts …* > search for *Floating Tiles* > *Install*.
+1. Install the script via *System Settings* > *Window Management* > *KWin Scripts* > *Get New Scripts …* > search for *Floating Tiles* > *Install*.
+2. Enable the script by activating its checkbox, and apply the settings.
 
 ### Installation via command line
 

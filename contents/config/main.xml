@@ -9,12 +9,20 @@
       <label>Automatically restore minimized windows once enough space is available again</label>
       <default>true</default>
     </entry>
+      <entry name="autoReactivate" type="bool">
+        <label>Automatically reactivate the most recently active window</label>
+        <default>false</default>
+      </entry>
       <entry name="ignoreNonnormal" type="bool">
         <label>Permit overlap with any non-normal windows</label>
         <default>false</default>
       </entry>
+      <entry name="ignoreSpecial" type="bool">
+        <label>Permit overlap with desktop shell windows (such as panel popouts or KRunner)</label>
+        <default>true</default>
+      </entry>
         <entry name="ignoreTransient" type="bool">
-          <label>Permit overlap with transient windows belonging to the toplevel window such as dialogs and toolbars</label>
+          <label>Permit overlap with transient windows (such as dialogs and tooblars) that belong to the same main window</label>
           <default>true</default>
       </entry>
         <entry name="excludeMode" type="bool">

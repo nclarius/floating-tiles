@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>693</width>
-    <height>680</height>
+    <height>674</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Floating Tiles</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_9">
+  <layout class="QVBoxLayout" name="verticalLayout_8">
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_5">
      <item>
@@ -33,6 +33,33 @@
              <bool>true</bool>
             </property>
            </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_10">
+            <item>
+             <spacer name="horizontalSpacer_9">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="kcfg_autoReactivate">
+              <property name="text">
+               <string>Automatically reactivate the most recently active window</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>
@@ -62,9 +89,19 @@
            </widget>
           </item>
           <item>
+           <widget class="QCheckBox" name="kcfg_ignoreSpecial">
+            <property name="text">
+             <string>desktop shell windows (such as panel popouts or KRunner)</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QCheckBox" name="kcfg_ignoreTransient">
             <property name="text">
-             <string>transient windows belonging to the same toplevel window, such as dialogs or toolbars</string>
+             <string>transient windows (such as dialogs or toolbars) that belong to the same main window</string>
             </property>
             <property name="checked">
              <bool>true</bool>
@@ -131,8 +168,7 @@
             <item>
              <widget class="QLabel" name="label_excludedAppsForeground">
               <property name="text">
-               <string>When a window of the following is in the foreground,
-don't hide overlapping other windows in the background:</string>
+               <string>A window of one of these applications in the foreground will never minimize other windows:</string>
               </property>
              </widget>
             </item>
@@ -186,8 +222,7 @@ don't hide overlapping other windows in the background:</string>
             <item>
              <widget class="QLabel" name="label_excludedAppsBackground">
               <property name="text">
-               <string>When a window of the following is in the backgound,
-don't hide that window if overlapping other windows are in the foreground:</string>
+               <string>A window of one of these applications in the background will never be minimized by other windows:</string>
               </property>
              </widget>
             </item>
@@ -260,8 +295,7 @@ don't hide that window if overlapping other windows are in the foreground:</stri
             <item>
              <widget class="QLabel" name="label_includedAppsForeground">
               <property name="text">
-               <string>When a window of the following is in the foreground,
-hide overlapping other windows in the background:</string>
+               <string>Only a window of one of these applications in the foreground will minimize other windows:</string>
               </property>
              </widget>
             </item>
@@ -315,8 +349,7 @@ hide overlapping other windows in the background:</string>
             <item>
              <widget class="QLabel" name="label_includedAppsBackground">
               <property name="text">
-               <string>When a window of the following is in the backgound,
-hide that window if overlapping other windows are in the foreground:</string>
+               <string>Only a window of one of these applications in the background will be minimized by other windows:</string>
               </property>
              </widget>
             </item>
@@ -431,6 +464,22 @@ hide that window if overlapping other windows are in the foreground:</string>
     <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_autoRestore</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_autoReactivate</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>346</x>
+     <y>52</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>359</x>
+     <y>81</y>
     </hint>
    </hints>
   </connection>

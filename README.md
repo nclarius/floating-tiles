@@ -1,5 +1,7 @@
 # Floating Tiles: no-stacking stacking window management for KWin
 
+[latest release](https://github.com/nclarius/floating-tiles/releases/latest) | [view in KDE store](https://store.kde.org/p/1619690)
+
 Extension for KDE's window manager to make windows non-overlapping, by automatically minimizing a window when it gets covered by another window, and optionally restoring it when space becomes available again.
 
 This is intended to keep the workspace clutter-free while maximizing screen real estate and retain the user in full control over window and workspace management, aiming to combine the efficiency of a tiling layout with the flexibility of freely positionable floating windows.

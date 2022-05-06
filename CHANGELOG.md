@@ -1,14 +1,5 @@
 # v6.0
-- add option to automatically reactivate most recently active window
-- fix disabling auto-restoration not working
-- improve efficiency
-- fix minimization and restoration sometimes delayed or not correctly applied on desktop, activity and geometry change
-- add full debug mode
-- change descriptions in configuration menu for clarity
-- change readme for comaptibility with older Plasma versions
-- refactor code
 
-# v6.0
 - add option to automatically reactivate most recently active window
 - fix disabling auto-restoration not working
 - improve efficiency

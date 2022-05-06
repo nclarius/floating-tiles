@@ -1,49 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
                           http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
-  <kcfgfile name=""/>
+  <kcfgfile name="" />
   <group name="">
-    <entry name="autoRestore" type="bool">
+    <entry name="autoRestore" type="Bool">
       <label>Automatically restore minimized windows once enough space is available again</label>
       <default>true</default>
     </entry>
-      <entry name="ignoreNonnormal" type="bool">
-        <label>Permit overlap with any non-normal windows</label>
-        <default>false</default>
-      </entry>
-        <entry name="ignoreTransient" type="bool">
-          <label>Permit overlap with transient windows belonging to the toplevel window such as dialogs and toolbars</label>
-          <default>true</default>
-      </entry>
-        <entry name="excludeMode" type="bool">
-            <label>Whether to gap all except the specified applications</label>
-            <default>true</default>
-        </entry>
-        <entry name="includeMode" type="bool">
-            <label>Whether to gap no except the specified applications</label>
-            <default>false</default>
-        </entry>
-        <entry name="excludedAppsForeground" type="string">
-            <label>List of applications to be excluded as foreground windows</label>
-            <default>plasmashell, krunner</default>
-        </entry>
-        <entry name="excludedAppsBackground" type="string">
-            <label>List of applications to be excluded as background windows</label>
-            <default></default>
-        </entry>
-        <entry name="includedAppsForeground" type="string">
-            <label>List of applications to be included as foreground windows</label>
-            <default></default>
-        </entry>
-        <entry name="includedAppsBackground" type="string">
-            <label>List of applications to be included as background windows</label>
-            <default></default>
-        </entry>
-        <entry name="debugMode" type="bool">
-            <label>Whether to log debug information</label>
-            <default>true</default>
-        </entry>
+    <entry name="autoReactivate" type="Bool">
+      <label>Automatically reactivate the most recently active window</label>
+      <default>false</default>
+    </entry>
+    <entry name="ignoreNonnormal" type="Bool">
+      <label>Permit overlap with any non-normal windows</label>
+      <default>true</default>
+    </entry>
+    <entry name="ignoreSpecial" type="Bool">
+      <label>Permit overlap with desktop shell windows (such as panel popouts or KRunner)</label>
+      <default>true</default>
+    </entry>
+    <entry name="ignoreTransient" type="Bool">
+      <label>Permit overlap with transient windows (such as dialogs and tooblars) that belong to the same main window</label>
+      <default>true</default>
+    </entry>
+    <entry name="excludeMode" type="Bool">
+      <label>Whether to gap all except the specified applications</label>
+      <default>true</default>
+    </entry>
+    <entry name="includeMode" type="Bool">
+      <label>Whether to gap no except the specified applications</label>
+      <default>false</default>
+    </entry>
+    <entry name="excludedAppsForeground" type="String">
+      <label>List of applications to be excluded as foreground windows</label>
+      <default></default>
+    </entry>
+    <entry name="excludedAppsBackground" type="String">
+      <label>List of applications to be excluded as background windows</label>
+      <default></default>
+    </entry>
+    <entry name="includedAppsForeground" type="String">
+      <label>List of applications to be included as foreground windows</label>
+      <default></default>
+    </entry>
+    <entry name="includedAppsBackground" type="String">
+      <label>List of applications to be included as background windows</label>
+      <default></default>
+    </entry>
+    <entry name="debugMode" type="Bool">
+      <label>Whether to log debug information</label>
+      <default>true</default>
+    </entry>
   </group>
 </kcfg>

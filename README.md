@@ -22,7 +22,8 @@ By default, any window that has been automatically minimized will be automatical
 
 ### Installation via graphical interface
 
-*System Settings* > *Window Management* > *KWin Scripts* > *Get New Scripts …* > search for *Floating Tiles* > *Install*.
+1. Install the script via Discover or *System Settings* > *Window Management* > *KWin Scripts* > *Get New Scripts …* > search for *Floating Tiles* > *Install*.
+2. Enable the script by activating its checkbox, and apply the settings.
 
 ### Installation via command line
 
@@ -47,6 +48,8 @@ ln -sf ~/.local/share/kwin/scripts/floatingtiles/metadata.desktop ~/.local/share
 qdbus org.kde.KWin /KWin reconfigure
 ```
 
+To find the window class name of an application: Right-click on the titlebar of a window of the application > *More Actions* > *Configure Special Application Settings...* > the pre-filled entry in *Window class (application)* (if it consists of two words, only the second part) is the window class to put in the script configuration.
+
 ## Usage
 
 ### Known issues
@@ -56,7 +59,7 @@ qdbus org.kde.KWin /KWin reconfigure
 
 ## Small Print
 
-© 2021 Natalie Clarius \<natalie_clarius@yahoo.de\>
+© 2021-2022 Natalie Clarius \<natalie_clarius@yahoo.de\>
 
 This work is licensed under the GNU General Public License v3.0.  
 This program comes with absolutely no warranty.  

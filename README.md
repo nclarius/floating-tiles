@@ -54,7 +54,6 @@ To find the window class name of an application: Right-click on the titlebar of 
 
 ### Known issues
 
-- When closing or minimizing a window, restored windows will not gain focus.
 - With auto-restore enabled, when using the Minimize All plasmoid, windows that had already been minimized automatically will be unwantedly unminimized.
 
 

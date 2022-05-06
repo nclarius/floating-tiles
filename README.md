@@ -12,7 +12,7 @@ By default, any window that has been automatically minimized will be automatical
 
 ![screenshot](.img/screenshot.gif)
 
-<img src=".img/config.png" alt="config" height="668"/>
+<img src=".img/config.png" alt="config"/>
 
 ## Installation
 

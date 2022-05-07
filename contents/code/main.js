@@ -114,7 +114,7 @@ var removed = false;
 
 // trigger minimize and restore
 // when client is initially present, added or activated
-workspace.clientList().forEach(client => onActivated(client));
+workspace.clientList().forEach(onActivated);
 workspace.clientAdded.connect(onActivated);
 workspace.clientActivated.connect(onActivated);
 function onActivated(client) {
@@ -130,7 +130,7 @@ function onActivated(client) {
 
 // add to watchlist on added and trigger minimize and restore
 // when client is moved or resized or screen geometry changes
-workspace.clientList().forEach(client => onAdded(client));
+workspace.clientList().forEach(onAdded);
 workspace.clientAdded.connect(onAdded);
 function onAdded(client) {
     debug("====================")
@@ -145,13 +145,20 @@ var block = false;
 function onAddedOnRegeometrized(client) {
     [client.clientGeometryChanged, 
      client.frameGeometryChanged,
-     client.moveResizedChanged, 
+     client.moveResizedChanged,
      client.fullScreenChanged, 
      client.clientMaximizedStateChanged, 
      client.screenChanged,
      client.desktopChanged,
      client.activitiesChanged].
        forEach(signal => signal.connect(onRegeometrized));
+    client.clientStartUserMovedResized.connect(client => {
+        // block = true;
+    });
+    client.clientFinishUserMovedResized.connect(client => {
+        block = false;
+        onRegeometrized(client);
+    });
 }
 function onRegeometrized(client) {
     if (!client) return;
@@ -218,6 +225,7 @@ function onRemoved(client) {
 // minimize all windows overlapped by active window
 function minimizeOverlapping(active) {
     if (!active) active = workspace.activeClient;
+    debug(active.caption, active.resourceName, active.resourceName == "krunner", ["plasmashell", "krunner"].includes(String(active.resourceName)), config.ignoreShell && ["plasmashell", "krunner"].includes(String(active.resourceName)));
     if (!active || ignoreClient(active) || ignoreFront(active)) return;
     debug("- apply minimize for", caption(active));
     fulldebug(properties(active));
@@ -354,33 +362,31 @@ function overlapVertical(win1, win2) {
 ///////////////////////
 
 function ignoreClient(win) {
-    return !(win.desktop == workspace.currentDesktop // different desktop
-             || win.onAllDesktops)
-        || (config.ignoreNonnormal // non-normal window
-            && !win.normalWindow)
+    return !(win.desktop == workspace.currentDesktop || win.onAllDesktops)
+           // different desktop
+        || (config.ignoreNonnormal && !win.normalWindow) // non-normal window
         || (config.ignoreShell // desktop shell window
-            && ["plasmashell", "krunner"].includes(win.resourceName))
+            && ["plasmashell", "krunner"].includes(String(win.resourceName)))
         || win.desktopWindow || win.dock // special window
         || win.dnd || win.tooltip || win.onScreenDisplay 
         || win.notification || win.criticalNotification
-        // || win.move || win.resize // still undergoing geometry change
 }
 
 function ignoreFront(front) {
-    return (config.excludeMode // application excluded
-            && config.excludedAppsForeground.includes(front.resourceClass))
-        || (config.includeMode // application not included
-            && !config.includedAppsForeground.includes(front.resourceClass))
+    return (config.excludeMode && config.excludedAppsForeground
+            .includes(String(front.resourceClass))) // application excluded
+        || (config.includeMode && !config.includedAppsForeground
+            .includes(String(front.resourceClass)))  // application not included
         || [workspace.clientArea(KWin.FullScreenArea, front), 
             workspace.clientArea(KWin.ScreenArea, front)]
             .includes(front.geometry) // fullscreen
 }
 
 function ignoreBack(back) {
-    return (config.excludeMode // application excluded
-            && config.excludedAppsBackground.includes(back.resourceClass))
-        || (config.includeMode // application not included
-            && !config.includedAppsBackground.includes(back.resourceClass))
+    return (config.excludeMode && config.excludedAppsBackground
+            .includes(String(back.resourceClass))) // application excluded
+        || (config.includeMode && !config.includedAppsBackground
+            .includes(String(back.resourceClass))) // application not included
         || !back.minimizable // not minimizable
 }
 

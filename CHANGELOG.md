@@ -1,3 +1,6 @@
+## v6.1
+- fix ignoring desktop shell windows not working correctly
+
 # v6.0
 
 - add option to automatically reactivate most recently active window

@@ -21,9 +21,9 @@ heading_bb=$([[ $version == *.0 ]] && echo "h1" || echo "h2")
 caption_bb='['"$heading_bb"']v'"$version"'[/'"$heading_bb"']'
 changes_bb='[list]\n'"$(cat CHANGELOG.txt | sed 's/- /[*] /g')"$'\n[/list]'
 changelog_bb="$caption_bb"$'\n'"$changes_bb"$'\n\n'"$(cat CHANGELOG.bbcode)"
-if ! grep -Fxq "$changelog_bb" CHANGELOG.bbcode
+if ! grep -Fxq "$caption_bb" CHANGELOG.bbcode
 then
-	echo "$caption_bb" > "CHANGELOG.bbcode"
+	echo "$changelog_bb" > "CHANGELOG.bbcode"
 	echo 'generated changelog bbcode'
 fi
 

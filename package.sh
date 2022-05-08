@@ -10,7 +10,7 @@ heading_md=$([[ $version == *.0 ]] && echo '#' || echo '##')
 caption_md="${heading_md}"' v'"${version}"
 changes_md=$(cat CHANGELOG.txt)
 changelog_md="$caption_md"$'\n'"$changes_md"$'\n\n'"$(cat CHANGELOG.md)"
-if ! grep -Fxq "$changelog_md" CHANGELOG.md
+if ! grep -Fxq "$caption_md" CHANGELOG.md
 then
 	echo "$changelog_md" > "CHANGELOG.md"
 	echo 'generated changelog markdown'
@@ -23,7 +23,7 @@ changes_bb='[list]\n'"$(cat CHANGELOG.txt | sed 's/- /[*] /g')"$'\n[/list]'
 changelog_bb="$caption_bb"$'\n'"$changes_bb"$'\n\n'"$(cat CHANGELOG.bbcode)"
 if ! grep -Fxq "$changelog_bb" CHANGELOG.bbcode
 then
-	echo "$changelog_bb" > "CHANGELOG.bbcode"
+	echo "$caption_bb" > "CHANGELOG.bbcode"
 	echo 'generated changelog bbcode'
 fi
 

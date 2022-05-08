@@ -1,3 +1,6 @@
+## v6.2
+- fix windows sometimes incorrectly minimized on regeometrization
+
 ## v6.1
 - fix ignoring desktop shell windows not working correctly
 

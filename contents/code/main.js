@@ -141,7 +141,6 @@ function onAdded(client) {
 }
 
 // trigger minimize and restore when window geometry changes
-var block = false;
 function onAddedOnRegeometrized(client) {
     [client.clientGeometryChanged, 
      client.frameGeometryChanged,
@@ -152,21 +151,12 @@ function onAddedOnRegeometrized(client) {
      client.desktopChanged,
      client.activitiesChanged].
        forEach(signal => signal.connect(onRegeometrized));
-    client.clientStartUserMovedResized.connect(client => {
-        // block = true;
-    });
-    client.clientFinishUserMovedResized.connect(client => {
-        block = false;
-        onRegeometrized(client);
-    });
 }
 function onRegeometrized(client) {
     if (!client) return;
-    if (block) return;
     debug("====================")
     debug("regeometrized", caption(client));
     fulldebug(properties(client));
-    removeMinimized(client);
     minimizeOverlapping(client);
     restoreMinimized(client);
 }
@@ -225,7 +215,6 @@ function onRemoved(client) {
 // minimize all windows overlapped by active window
 function minimizeOverlapping(active) {
     if (!active) active = workspace.activeClient;
-    debug(active.caption, active.resourceName, active.resourceName == "krunner", ["plasmashell", "krunner"].includes(String(active.resourceName)), config.ignoreShell && ["plasmashell", "krunner"].includes(String(active.resourceName)));
     if (!active || ignoreClient(active) || ignoreFront(active)) return;
     debug("- apply minimize for", caption(active));
     fulldebug(properties(active));

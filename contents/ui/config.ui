@@ -86,10 +86,16 @@
             <property name="text">
              <string>any non-normal windows</string>
             </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item>
            <widget class="QCheckBox" name="kcfg_ignoreSpecial">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>desktop shell windows (such as panel popouts or KRunner)</string>
             </property>
@@ -100,6 +106,9 @@
           </item>
           <item>
            <widget class="QCheckBox" name="kcfg_ignoreTransient">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>transient windows (such as dialogs or toolbars) that belong to the same main window</string>
             </property>
@@ -195,7 +204,7 @@
             <item>
              <widget class="QLineEdit" name="kcfg_excludedAppsForeground">
               <property name="text">
-               <string>plasmashell, krunner</string>
+               <string/>
               </property>
              </widget>
             </item>
@@ -480,6 +489,70 @@
     <hint type="destinationlabel">
      <x>359</x>
      <y>81</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_ignoreNonnormal</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_ignoreSpecial</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>346</x>
+     <y>178</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>346</x>
+     <y>206</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_ignoreNonnormal</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>kcfg_ignoreSpecial</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>346</x>
+     <y>178</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>346</x>
+     <y>206</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_ignoreNonnormal</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_ignoreTransient</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>346</x>
+     <y>178</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>346</x>
+     <y>234</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_ignoreNonnormal</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_ignoreTransient</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>346</x>
+     <y>178</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>346</x>
+     <y>234</y>
     </hint>
    </hints>
   </connection>

@@ -1,3 +1,6 @@
+## v6.3
+- improve config UI
+
 ## v6.2
 - fix windows sometimes incorrectly minimized on regeometrization
 

@@ -24,7 +24,11 @@ By default, any window that has been automatically minimized will be automatical
 
 ### Installation via graphical interface
 
-1. Install the script via Discover or *System Settings* > *Window Management* > *KWin Scripts* > *Get New Scripts …* > search for *Floating Tiles* > *Install*.
+**Please make sure to select the most recent version (v6.3)** in the installation process.
+
+A [bug](https://bugs.kde.org/show_bug.cgi?id=453521) in Discover cauases a wrong version to be installed, so using System Settings instead is recommended.
+
+1. Install the script via *System Settings* > *Window Management* > *KWin Scripts* > *Get New Scripts …* > search for *Floating Tiles* > *Install*.
 2. Enable the script by activating its checkbox, and apply the settings.
 
 ### Installation via command line

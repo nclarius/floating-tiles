@@ -355,7 +355,8 @@ function ignoreClient(win) {
            // different desktop
         || (config.ignoreNonnormal && !win.normalWindow) // non-normal window
         || (config.ignoreShell // desktop shell window
-            && ["plasmashell", "krunner"].includes(String(win.resourceName)))
+            && ["plasmashell", "krunner"].includes(String(win.resourceName))
+            && win.frameGeometry != workspace.clientArea(KWin.FullScreenArea, win))
         || win.desktopWindow || win.dock // special window
         || win.dnd || win.tooltip || win.onScreenDisplay 
         || win.notification || win.criticalNotification
@@ -366,9 +367,6 @@ function ignoreFront(front) {
             .includes(String(front.resourceClass))) // application excluded
         || (config.includeMode && !config.includedAppsForeground
             .includes(String(front.resourceClass)))  // application not included
-        || [workspace.clientArea(KWin.FullScreenArea, front), 
-            workspace.clientArea(KWin.ScreenArea, front)]
-            .includes(front.geometry) // fullscreen
 }
 
 function ignoreBack(back) {

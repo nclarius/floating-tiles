@@ -20,7 +20,7 @@ By default, any window that has been automatically minimized will be automatical
 
 ### Dependencies
 
-`kwin` version ≥ 5.21.
+`kwin` (tested with version 5.26 on X11).
 
 ### Installation via graphical interface
 
@@ -44,9 +44,9 @@ You may need to uncheck the checkbox for the script, apply the settings, recheck
 In Plasma versions < 5.24, a bug in the KWin scripting system [[1]](https://bugs.kde.org/show_bug.cgi?id=411430) [[2]](https://bugs.kde.org/show_bug.cgi?id=444378) may cause the configuration not to be found. To fix this, please execute the following commands in a terminal:
 
 ```bash
-sed -i 's/ConfigModule/Library/g' ~/.local/share/kwin/scripts/floatingtiles/metadata.desktop
+sed -i 's/ConfigModule/Library/g' ~/.local/share/kwin/scripts/floatingtiles/metadata.json
 mkdir -p ~/.local/share/kservices5/
-ln -sf ~/.local/share/kwin/scripts/floatingtiles/metadata.desktop ~/.local/share/kservices5/floatingtiles.desktop
+ln -sf ~/.local/share/kwin/scripts/floatingtiles/metadata.json ~/.local/share/kservices5/floatingtiles.json
 qdbus org.kde.KWin /KWin reconfigure
 ```
 
@@ -57,6 +57,7 @@ To find the window class name of an application: Right-click on the titlebar of 
 ### Known issues
 
 - With auto-restore enabled, when using the Minimize All plasmoid, windows that had already been minimized automatically will be unwantedly unminimized.
+- The configuration interface is clunky; buttons do not always appear highlighted as intended.
 
 
 ## Small Print

@@ -2,7 +2,7 @@
 
 # get plugin info
 name=$(basename "$PWD")
-version=$(grep -oP '(?<=X-KDE-PluginInfo-Version=).*' ./metadata.desktop)
+version=$(grep -oP '"Version":\s*"[^"]*' ./metadata.json | grep -oP '[^"]*$')
 echo "$name"' v'"$version"
 
 # generate changelog in markdown format
@@ -19,7 +19,7 @@ fi
 # generate changelog in bbcode format
 heading_bb=$([[ $version == *.0 ]] && echo "h1" || echo "h2")
 caption_bb='['"$heading_bb"']v'"$version"'[/'"$heading_bb"']'
-changes_bb='[list]\n'"$(cat CHANGELOG.txt | sed 's/- /[*] /g')"$'\n[/list]'
+changes_bb=$'[list]\n'"$(cat CHANGELOG.txt | sed 's/- /[*] /g')"$'\n[/list]'
 changelog_bb="$caption_bb"$'\n'"$changes_bb"$'\n\n'"$(cat CHANGELOG.bbcode)"
 if ! grep -Fxq "$caption_bb" CHANGELOG.bbcode
 then
@@ -31,7 +31,7 @@ fi
 find . -name "*.kwinscript" -type f -delete
 zip -rq "${name}"'_v'"${version}"'.kwinscript'  \
 	contents \
-	metadata.desktop \
+	metadata.json \
     install.sh \
     uninstall.sh \
     README.md \

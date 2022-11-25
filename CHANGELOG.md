@@ -1,3 +1,9 @@
+# v7.0
+- fix include/exclude lists not correctly applied
+- port metadata to json
+- fix formatting error in changelog bbcode
+- minor refactoring
+
 ## v6.3
 - improve config UI
 

@@ -1,0 +1,33 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "natalie_clarius@yahoo.de",
+                "Name": "Natalie Clarius"
+            }
+        ],
+        "Description": "Prevents windows from overlapping by minimizing and restoring windows according to available space",
+        "Description[de]": "Verhindert Überlappen von Fenstern, indem Fenster je nach verfügbarem Platz automatisch minimiert und wiederhergestellt werden",
+        "Description[nl]": "Voorkomt vensteroverlapping door ze te minimaliseren en herstellen op basis van de beschikbare ruimte",
+        "EnabledByDefault": true,
+        "Icon": "preferences-system-windows",
+        "Id": "floatingtiles",
+        "License": "GPLv3.0",
+        "Name": "Floating Tiles",
+        "Name[de]": "Schwebende Kacheln",
+        "Name[nl]": "Zwevende tegels",
+        "ServiceTypes": [
+            "KWin/Script",
+            "KCModule"
+        ],
+        "Version": "7.0",
+        "Website": "https://store.kde.org/p/1619690"
+    },
+    "X-KDE-ConfigModule": "kwin/effects/configs/kcm_kwin4_genericscripted",
+    "X-KDE-ParentComponents": [
+        "floatingtiles"
+    ],
+    "X-KDE-PluginKeyword": "floatingtiles",
+    "X-Plasma-API": "javascript",
+    "X-Plasma-MainScript": "code/main.js"
+}

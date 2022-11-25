@@ -175,7 +175,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QLabel" name="label_excludedAppsForeground">
+             <widget class="QCheckBox" name="kcfg_excludeForeground">
               <property name="text">
                <string>A window of one of these applications in the foreground will never minimize other windows:</string>
               </property>
@@ -187,6 +187,22 @@
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
              <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>24</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_10">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -229,7 +245,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QLabel" name="label_excludedAppsBackground">
+             <widget class="QCheckBox" name="kcfg_excludeBackground">
               <property name="text">
                <string>A window of one of these applications in the background will never be minimized by other windows:</string>
               </property>
@@ -241,6 +257,22 @@
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
              <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>24</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_11">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -302,7 +334,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QLabel" name="label_includedAppsForeground">
+             <widget class="QRadioButton" name="kcfg_includeForeground">
               <property name="text">
                <string>Only a window of one of these applications in the foreground will minimize other windows:</string>
               </property>
@@ -314,6 +346,22 @@
            <layout class="QHBoxLayout" name="horizontalLayout_6">
             <item>
              <spacer name="horizontalSpacer_6">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>24</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_12">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -356,7 +404,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QLabel" name="label_includedAppsBackground">
+             <widget class="QRadioButton" name="kcfg_includeBackground">
               <property name="text">
                <string>Only a window of one of these applications in the background will be minimized by other windows:</string>
               </property>
@@ -368,6 +416,22 @@
            <layout class="QHBoxLayout" name="horizontalLayout_8">
             <item>
              <spacer name="horizontalSpacer_8">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>24</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_13">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -413,62 +477,46 @@
  <resources/>
  <connections>
   <connection>
-   <sender>kcfg_excludeMode</sender>
+   <sender>kcfg_excludeForeground</sender>
    <signal>toggled(bool)</signal>
    <receiver>kcfg_excludedAppsForeground</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>361</x>
+     <y>347</y>
     </hint>
     <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
+     <x>376</x>
+     <y>381</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>kcfg_excludeMode</sender>
+   <sender>kcfg_excludeBackground</sender>
    <signal>toggled(bool)</signal>
    <receiver>kcfg_excludedAppsBackground</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>361</x>
+     <y>415</y>
     </hint>
     <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
+     <x>376</x>
+     <y>449</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>kcfg_includeMode</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>kcfg_includedAppsForeground</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>kcfg_includeMode</sender>
+   <sender>kcfg_includeBackground</sender>
    <signal>toggled(bool)</signal>
    <receiver>kcfg_includedAppsBackground</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>361</x>
+     <y>587</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>
@@ -510,7 +558,7 @@
   </connection>
   <connection>
    <sender>kcfg_ignoreNonnormal</sender>
-   <signal>clicked(bool)</signal>
+   <signal>toggled(bool)</signal>
    <receiver>kcfg_ignoreSpecial</receiver>
    <slot>setDisabled(bool)</slot>
    <hints>
@@ -553,6 +601,86 @@
     <hint type="destinationlabel">
      <x>346</x>
      <y>234</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_includeForeground</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_includedAppsForeground</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>361</x>
+     <y>519</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_includeMode</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_includeForeground</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>346</x>
+     <y>491</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>361</x>
+     <y>519</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_includeMode</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_includeBackground</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>346</x>
+     <y>491</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>361</x>
+     <y>587</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_excludeMode</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_excludeBackground</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>346</x>
+     <y>319</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>361</x>
+     <y>415</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_excludeMode</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_excludeForeground</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>346</x>
+     <y>319</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>361</x>
+     <y>347</y>
     </hint>
    </hints>
   </connection>

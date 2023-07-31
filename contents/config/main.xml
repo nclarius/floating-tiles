@@ -23,6 +23,10 @@
       <label>Permit overlap with transient windows (such as dialogs and tooblars) that belong to the same main window</label>
       <default>true</default>
     </entry>
+    <entry name="ignoreKeepAbove" type="Bool">
+      <label>Permit overlap with windows in always on top mode</label>
+      <default>false</default>
+    </entry>
     <entry name="excludeMode" type="Bool">
       <label>Whether to gap all except the specified applications</label>
       <default>true</default>

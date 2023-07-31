@@ -18,6 +18,7 @@ const config = {
     ignoreNonnormal: readConfig("ignoreNonnormal", true),
     ignoreShell: readConfig("ignoreSpecial", true),
     ignoreTransient: readConfig("ignoreTransient", true),
+    ignoreKeepAbove: readConfig("ignoreKeepAbove", false),
     // excluded/included applications
     excludeMode: readConfig("excludeMode", true),
     excludeForeground: readConfig("excludeForeground", false),
@@ -50,7 +51,8 @@ debug("initializing");
 debug("auto restore:", config.autoRestore);
 debug("ignore non-normal:", config.ignoreNonnormal,
       "ignore shell:", config.ignoreShell,
-      "ignore transient:", config.ignoreTransient);
+      "ignore transient:", config.ignoreTransient,
+      "ignore keep above:", config.ignoreKeepAbove);
 debug("exclude (fg, bg):", config.excludeMode,
       config.excludedAppsForeground, config.excludedAppsBackground);
 debug("include (fg, bg):", config.includeMode,
@@ -353,6 +355,7 @@ function ignoreWindow(win) {
     return !(win.desktop == workspace.currentDesktop || win.onAllDesktops)
            // different desktop
         || (config.ignoreNonnormal && !win.normalWindow) // non-normal window
+        || (config.ignoreKeepAbove && win.keepAbove) // always-on-top windows
         || (config.ignoreShell // desktop shell window
             && ["plasmashell", "krunner"].includes(String(win.resourceName))
             && win.frameGeometry != workspace.clientArea(KWin.FullScreenArea, win))
